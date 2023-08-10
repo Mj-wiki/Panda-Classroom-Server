@@ -12,8 +12,6 @@ export class AppController {
       name: '水滴超级管理员',
       desc: '管理员',
       tel: '8800888',
-      password: '123456',
-      account: 'admin',
     });
   }
 

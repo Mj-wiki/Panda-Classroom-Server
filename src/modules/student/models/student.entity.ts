@@ -4,8 +4,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 /**
  * 组件
  */
-@Entity('user')
-export class User {
+@Entity('student')
+export class Student {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -17,12 +17,6 @@ export class User {
   name: string;
 
   @Column({
-    comment: '描述',
-    default: '',
-  })
-  desc: string;
-
-  @Column({
     comment: '手机号',
     nullable: true,
   })
@@ -32,17 +26,15 @@ export class User {
     comment: '头像',
     nullable: true,
   })
-  avatar: string;
+  avatarUrl: string;
 
   @Column({
-    comment: '验证码',
-    nullable: true,
+    comment: '密码',
   })
-  code: string;
+  password: string;
 
   @Column({
-    comment: '验证码生成时间',
-    nullable: true,
+    comment: '账户',
   })
-  codeCreateTimeAt: Date;
+  account: string;
 }

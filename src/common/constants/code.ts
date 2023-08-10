@@ -6,3 +6,7 @@ export const CODE_NOT_EXIST = 10004;
 export const CODE_EXPIRE = 10005;
 export const LOGIN_ERROR = 10006;
 export const CODE_SEND_ERROR = 10007;
+export const ACCOUNT_EXIST = 10008;
+export const REGISTER_ERROR = 10009;
+export const NOT_EMPTY = 10010;
+export const VALIDATE_ERROR = 10011;

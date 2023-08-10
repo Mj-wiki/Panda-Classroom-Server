@@ -4,10 +4,12 @@ import { Field, ObjectType } from '@nestjs/graphql';
 export class UserType {
   @Field()
   id?: string;
-  @Field()
+  @Field({ description: '昵称' })
   name?: string;
-  @Field()
+  @Field({ description: '简介' })
   desc: string;
-  @Field({ description: '账户信息' })
-  account: string;
+  @Field({ description: 'tel' })
+  tel: string;
+  @Field({ description: '头像' })
+  avatar: string;
 }
