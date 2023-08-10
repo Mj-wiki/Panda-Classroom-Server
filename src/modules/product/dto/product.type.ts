@@ -4,7 +4,7 @@ import { CardType } from '@/modules/card/dto/card.type';
 import { Field, ObjectType } from '@nestjs/graphql';
 
 /**
- * 学员
+ * 商品
  */
 @ObjectType()
 export class ProductType extends CommonType {

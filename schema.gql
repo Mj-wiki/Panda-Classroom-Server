@@ -232,6 +232,14 @@ type ProductType {
   cards: [CardType!]
 }
 
+type ProductTypeType {
+  """key"""
+  key: String!
+
+  """名称"""
+  title: String!
+}
+
 type ProductResult {
   code: Int!
   message: String!
@@ -242,6 +250,13 @@ type ProductResults {
   code: Int!
   message: String!
   data: [ProductType!]
+  page: Page
+}
+
+type ProductTypesResults {
+  code: Int!
+  message: String!
+  data: [ProductTypeType!]
   page: Page
 }
 
@@ -329,6 +344,53 @@ type CourseResults {
   page: Page
 }
 
+type TeacherType {
+  id: String!
+  createdAt: DateTime!
+  createdBy: String
+  updatedAt: DateTime
+  updatedBy: String
+  deletedAt: DateTime
+  deletedBy: String
+
+  """名称"""
+  name: String!
+
+  """照片"""
+  photoUrl: String
+
+  """教龄"""
+  teacherTime: Float
+
+  """风格标签，以，隔开"""
+  tags: String
+
+  """学历"""
+  education: String
+
+  """资历"""
+  seniority: String
+
+  """职业经验"""
+  experience: String
+
+  """获奖经历"""
+  carryPrize: String
+}
+
+type TeacherResult {
+  code: Int!
+  message: String!
+  data: TeacherType
+}
+
+type TeacherResults {
+  code: Int!
+  message: String!
+  data: [TeacherType!]
+  page: Page
+}
+
 type Query {
   """使用 ID 查询用户"""
   find(id: String!): UserType!
@@ -346,8 +408,11 @@ type Query {
   getCourses(page: PageInput!, name: String): CourseResults!
   getCardInfo(id: String!): CardResult!
   getCards(courseId: String!, name: String): CardResults!
+  getProductTypes: ProductTypesResults!
   getProductInfo(id: String!): ProductResult!
   getProducts(page: PageInput!, name: String): ProductResults!
+  getTeacherInfo(id: String!): TeacherResult!
+  getTeachers(page: PageInput!, name: String): TeacherResults!
 }
 
 input PageInput {
@@ -385,6 +450,8 @@ type Mutation {
   deleteCard(id: String!): Result!
   commitProductInfo(params: PartialProductInput!, id: String): ProductResult!
   deleteProduct(id: String!): Result!
+  commitTeacherInfo(params: TeacherInput!, id: String): TeacherResult!
+  deleteTeacher(id: String!): Result!
 }
 
 input UserInput {
@@ -551,4 +618,30 @@ input PartialProductInput {
 
   """消费卡"""
   cards: [String!]
+}
+
+input TeacherInput {
+  """名称"""
+  name: String!
+
+  """照片"""
+  photoUrl: String!
+
+  """教龄"""
+  teacherTime: Float
+
+  """风格标签，以，隔开"""
+  tags: String
+
+  """学历"""
+  education: String
+
+  """资历"""
+  seniority: String
+
+  """职业经验"""
+  experience: String
+
+  """获奖经历"""
+  carryPrize: String
 }
