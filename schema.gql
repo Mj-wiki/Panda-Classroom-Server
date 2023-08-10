@@ -40,7 +40,11 @@ type OSSType {
   """host"""
   host: String!
 
+<<<<<<< HEAD
   """dir"""
+=======
+  """文件夹"""
+>>>>>>> b7fec0e7a6968b5ac66158b72ca7625b09b0689f
   dir: String!
 }
 
@@ -70,6 +74,12 @@ type Mutation {
 
   """登录"""
   login(tel: String!, code: String!): Result!
+
+  """学员登录"""
+  studentLogin(account: String!, password: String!): Result!
+
+  """学员注册"""
+  studentRegister(account: String!, password: String!): Result!
 }
 
 input UserInput {

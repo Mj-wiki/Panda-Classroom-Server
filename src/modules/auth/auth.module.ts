@@ -7,6 +7,8 @@ import { UserService } from './../user/user.service';
 import { User } from '../user/models/user.entity';
 import { JWT_SECRET } from '@/common/constants/aliyun';
 import { JwtStrategy } from './jwt.strategy';
+import { Student } from '../student/models/student.entity';
+import { StudentService } from '../student/student.service';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { JwtStrategy } from './jwt.strategy';
         expiresIn: 60 * 60 * 24 * 7 + 's',
       },
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Student]),
   ],
   providers: [
     JwtStrategy,
@@ -24,6 +26,7 @@ import { JwtStrategy } from './jwt.strategy';
     AuthService,
     AuthResolver,
     UserService,
+    StudentService,
   ],
   exports: [],
 })
