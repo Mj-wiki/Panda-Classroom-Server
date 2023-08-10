@@ -144,4 +144,39 @@ export class CardRecordService {
     });
     return data;
   }
+
+  // 获取某人可用的消费卡
+  async findUseCards(
+    studentId: string,
+    courseId: string,
+  ): Promise<[CardRecord[], number]> {
+    const [cards] = await this.cardRecordRepository.findAndCount({
+      where: {
+        student: {
+          id: studentId,
+        },
+        course: {
+          id: courseId,
+        },
+      },
+      relations: ['card'],
+    });
+
+    const newCards = [];
+    cards.forEach((card) => {
+      if (!dayjs().isAfter(card.endTime)) {
+        // 没有过期
+        if (card.card.type === CardType.DURATION) {
+          // 没有过期，且是时长卡
+          newCards.push(card);
+        }
+        if (card.card.type === CardType.TIME && card.residueTime > 0) {
+          // 没有过期，且是次卡，同时还有次数
+          newCards.push(card);
+        }
+      }
+    });
+
+    return [newCards, newCards.length];
+  }
 }

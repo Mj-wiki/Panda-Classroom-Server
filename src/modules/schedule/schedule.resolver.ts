@@ -138,9 +138,15 @@ export class ScheduleResolver {
 
   // 获得所有课程表
   @Query(() => ScheduleResults)
-  async getSchedules(@Args('today') today: string): Promise<ScheduleResults> {
+  async getSchedules(
+    @Args('today') today: string,
+    @CurOrgId() orgId: string,
+  ): Promise<ScheduleResults> {
     const where: FindOptionsWhere<Schedule> = {
       schoolDay: dayjs(today).toDate(),
+      org: {
+        id: orgId,
+      },
     };
     const [results, total] = await this.scheduleService.findAllSchedules({
       where,
@@ -223,6 +229,25 @@ export class ScheduleResolver {
       data: orgs,
       page: {
         total: orgs.length,
+      },
+    };
+  }
+
+  @Query(() => ScheduleResults, {
+    description: '获取某一个课程的近七天的课程表',
+  })
+  async getSchedulesByCourse(
+    @Args('courseId') courseId: string,
+  ): Promise<ScheduleResults> {
+    const [entities, count] =
+      await this.scheduleService.findValidSchedulesForNext7Days(courseId);
+
+    return {
+      code: SUCCESS,
+      message: '获取成功',
+      data: entities,
+      page: {
+        total: count,
       },
     };
   }
