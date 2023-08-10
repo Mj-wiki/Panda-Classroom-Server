@@ -70,7 +70,12 @@ export class ScheduleService {
       order: {
         startTime: 'ASC',
       },
-      relations: ['course', 'course.teachers'],
+      relations: [
+        'course',
+        'course.teachers',
+        'scheduleRecords',
+        'scheduleRecords.student',
+      ],
     });
   }
 

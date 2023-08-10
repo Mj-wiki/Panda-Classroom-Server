@@ -30,7 +30,9 @@ export class ScheduleRecord extends CommonEntity {
   @ManyToOne(() => CardRecord, { cascade: true })
   cardRecord: CardRecord;
 
-  @ManyToOne(() => Schedule, { cascade: true })
+  @ManyToOne(() => Schedule, (schedule) => schedule.scheduleRecords, {
+    cascade: true,
+  })
   schedule: Schedule;
 
   @ManyToOne(() => Course, { cascade: true })
