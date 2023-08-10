@@ -64,5 +64,15 @@ https://dysms.console.aliyun.com/quickstart
 https://water-drop.yondu.vip
 
 ## 如何测试
-安装所需的包：pnpm i sqlite3 -D
-nestjs 测试文档：https://docs.nestjs.com/fundamentals/testing#testing-utilities
+- 安装所需的包：`pnpm i sqlite3 -D`
+- nestjs 测试文档：https://docs.nestjs.com/fundamentals/testing#testing-utilities
+
+## 如何本地部署？
+1. 项目构建：`pnpm run build`
+2. 创建一个安装文件夹 `server`
+3. 配置.env: 把 `.env.template` 文件内容配置好，然后改成 `.env` 放在 `server` 目录下。
+4. 拷贝 `dist` 文件到 `server` 文件夹下
+5. 配置 `pem` 文件：把微信支付用到的 `pem` 文件放到 `WXPAY_DIR` 配置的文件夹下
+6. 复制 `package.json` 和 `pnpm-lock.yaml` 文件到根目录
+7. 执行 `pnpm i`，前提是已经安装了 pnpm，`pnpm i pnpm -g`
+8. 启动：`pnpm start:prod`
