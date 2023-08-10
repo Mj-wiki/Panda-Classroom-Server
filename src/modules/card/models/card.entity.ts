@@ -3,11 +3,7 @@ import { CommonEntity } from '@/common/entities/common.entity';
 import { Course } from '@/modules/course/models/course.entity';
 import { IsNotEmpty } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
-
-export enum CardType {
-  TIME = 'time',
-  DURATION = 'duration',
-}
+import { CardType } from '@/common/constants/enmu';
 
 /**
  * 消费卡
