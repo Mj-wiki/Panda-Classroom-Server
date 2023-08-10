@@ -98,4 +98,4 @@ https://water-drop.yondu.vip
 ## docker 里安装 mysql
 - 文档：https://www.runoob.com/docker/docker-install-mysql.html
 - docker pull mysql:latest
-- 启动 mysql 镜像并初始化数据：docker run -itd  --name mysql-test -p 3316:3306 -v init:/docker-entrypoint-initdb.d  -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=test mysql 
+- 启动 mysql 镜像并初始化数据：docker run -itd  --name mysql-test -p 3316:3306 -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=test -v /Users/blackstone/Desktop/docker/init:/docker-entrypoint-initdb.d mysql
