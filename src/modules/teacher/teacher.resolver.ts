@@ -107,7 +107,7 @@ export class TeacherResolver {
       where.name = Like(`%${name}%`);
     }
     const [results, total] = await this.teacherService.findTeachers({
-      start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
+      start: (pageNum - 1) * pageSize,
       length: pageSize,
       where,
     });

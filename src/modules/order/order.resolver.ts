@@ -44,7 +44,7 @@ export class OrderResolver {
     const { pageNum, pageSize } = page;
     const where: FindOptionsWhere<Order> = { createdBy: userId };
     const [results, total] = await this.orderService.findOrders({
-      start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
+      start: (pageNum - 1) * pageSize,
       length: pageSize,
       where,
     });

@@ -140,7 +140,7 @@ export class ProductResolver {
       };
     }
     const [results, total] = await this.productService.findProducts({
-      start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
+      start: (pageNum - 1) * pageSize,
       length: pageSize,
       where,
     });
@@ -201,7 +201,7 @@ export class ProductResolver {
     }
     const { entities, raw } =
       await this.productService.findProductsOrderByDistance({
-        start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
+        start: (pageNum - 1) * pageSize,
         length: pageSize,
         where,
         position: {

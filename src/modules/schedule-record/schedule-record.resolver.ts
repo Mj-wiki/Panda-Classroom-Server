@@ -58,7 +58,7 @@ export class ScheduleRecordResolver {
     const { pageNum, pageSize } = page;
     const [scheduleRecords, total] =
       await this.scheduleRecordService.findScheduleRecords({
-        start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
+        start: (pageNum - 1) * pageSize,
         length: pageSize,
         where: {
           student: {

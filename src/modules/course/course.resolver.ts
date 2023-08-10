@@ -113,7 +113,7 @@ export class CourseResolver {
       where.name = Like(`%${name}%`);
     }
     const [results, total] = await this.courseService.findCourses({
-      start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
+      start: (pageNum - 1) * pageSize,
       length: pageSize,
       where,
     });
