@@ -6,6 +6,7 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { WxConfigResult } from './dto/result-wxpay.output';
 import {
   NOT_OPENID,
+  ORDER_LIMIT,
   PRODUCT_NOT_EXIST,
   SUCCESS,
 } from '@/common/constants/code';
@@ -45,6 +46,18 @@ export class WxpayResolver {
   ): Promise<WxConfigResult> {
     const student = await this.studentService.findById(userId);
     const product = await this.productService.findById(productId);
+    const orders = await this.orderService.findByStudentAndProduct(
+      userId,
+      productId,
+      product.org.id,
+    );
+
+    if (orders.length + quantity > product.limitBuyNumber) {
+      return {
+        code: ORDER_LIMIT,
+        message: `一个用户只能购买 ${product.limitBuyNumber} 个商品, 您已超过限购数量。`,
+      };
+    }
 
     if (!product) {
       return {
@@ -105,6 +118,19 @@ export class WxpayResolver {
   ): Promise<Result> {
     const student = await this.studentService.findById(userId);
     const product = await this.productService.findById(productId);
+    const orders = await this.orderService.findByStudentAndProduct(
+      userId,
+      productId,
+      product.org.id,
+    );
+
+    if (orders.length + quantity > product.limitBuyNumber) {
+      return {
+        code: ORDER_LIMIT,
+        message: `一个用户只能购买 ${product.limitBuyNumber} 个商品, 您已超过限购数量。`,
+      };
+    }
+
     const outTradeNo = uuidv4().replace(/-/g, '');
     await this.orderService.create({
       tel: student.tel,
@@ -149,7 +175,7 @@ export class WxpayResolver {
     );
     return {
       code: SUCCESS,
-      message: '创建成功',
+      message: '购买成功',
     };
   }
 }

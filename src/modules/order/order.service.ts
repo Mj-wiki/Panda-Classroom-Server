@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository, FindOptionsWhere } from 'typeorm';
 import { Order } from './models/order.entity';
+import { OrderStatus } from '@/common/constants/enmu';
 @Injectable()
 export class OrderService {
   constructor(
@@ -23,6 +24,28 @@ export class OrderService {
     return this.orderRepository.findOne({
       where: {
         id,
+      },
+    });
+  }
+
+  /**
+   * 获取用户购买该商品的信息,必须是已经支付成功的
+   */
+  async findByStudentAndProduct(
+    studentId: string,
+    productId: string,
+    orgId: string,
+  ): Promise<Order[]> {
+    return this.orderRepository.findBy({
+      status: OrderStatus.SUCCESS,
+      student: {
+        id: studentId,
+      },
+      product: {
+        id: productId,
+      },
+      org: {
+        id: orgId,
       },
     });
   }

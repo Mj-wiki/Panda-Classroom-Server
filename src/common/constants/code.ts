@@ -29,3 +29,4 @@ export const PRODUCT_NOT_EXIST = 10027;
 export const PRODUCT_UPDATE_FAIL = 10028;
 export const NOT_OPENID = 10029;
 export const SCHEDULE_CREATE_FAIL = 10030;
+export const ORDER_LIMIT = 10031;
