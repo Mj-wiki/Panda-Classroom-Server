@@ -37,6 +37,7 @@ export class Student extends CommonEntity {
 
   @Column({
     comment: 'openid',
+    nullable: true,
   })
-  openid: string;
+  openid?: string;
 }

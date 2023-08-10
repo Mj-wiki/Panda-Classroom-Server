@@ -85,6 +85,11 @@ export class WxpayController {
             // 关联的微信支付信息
             wxOrder: wxOrder,
           });
+          // 添加售卖数
+          await this.productService.updateById(product.id, {
+            buyNumber: product.buyNumber + order.quantity,
+            curStock: product.curStock - order.quantity,
+          });
         }
         // 如果创建失败，如何容错？
       }

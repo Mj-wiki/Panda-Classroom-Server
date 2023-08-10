@@ -8,6 +8,7 @@ import {
   NOT_OPENID,
   ORDER_LIMIT,
   PRODUCT_NOT_EXIST,
+  STACK_NOT_ENOUGH,
   SUCCESS,
 } from '@/common/constants/code';
 import WxPay from 'wechatpay-node-v3';
@@ -52,10 +53,19 @@ export class WxpayResolver {
       product.org.id,
     );
 
+    // 商品限购
     if (orders.length + quantity > product.limitBuyNumber) {
       return {
         code: ORDER_LIMIT,
         message: `一个用户只能购买 ${product.limitBuyNumber} 个商品, 您已超过限购数量。`,
+      };
+    }
+
+    // 库存不足
+    if (product.curStock - quantity < 0) {
+      return {
+        code: STACK_NOT_ENOUGH,
+        message: '库存不足',
       };
     }
 
@@ -124,10 +134,19 @@ export class WxpayResolver {
       product.org.id,
     );
 
+    // 商品限购
     if (orders.length + quantity > product.limitBuyNumber) {
       return {
         code: ORDER_LIMIT,
         message: `一个用户只能购买 ${product.limitBuyNumber} 个商品, 您已超过限购数量。`,
+      };
+    }
+
+    // 库存不足
+    if (product.curStock - quantity < 0) {
+      return {
+        code: STACK_NOT_ENOUGH,
+        message: '库存不足',
       };
     }
 
@@ -173,6 +192,12 @@ export class WxpayResolver {
       userId,
       product.cards.map((item) => item.id),
     );
+
+    // 添加售卖数
+    await this.productService.updateById(product.id, {
+      buyNumber: product.buyNumber + quantity,
+      curStock: product.curStock - quantity,
+    });
     return {
       code: SUCCESS,
       message: '购买成功',

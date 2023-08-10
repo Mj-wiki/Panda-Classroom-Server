@@ -71,6 +71,8 @@ export class ProductResolver {
         ...params,
         createdBy: userId,
         cards: [],
+        // 初始化当前的库存为总库存数
+        curStock: params.stock,
         status: ProductStatus.UN_LIST,
         org: {
           id: orgId,
