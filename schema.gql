@@ -325,6 +325,9 @@ type StudentType {
 
   """账号"""
   account: String
+
+  """openid"""
+  openid: String
 }
 
 type StudentResult {

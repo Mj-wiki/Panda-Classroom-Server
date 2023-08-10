@@ -1,8 +1,4 @@
-import {
-  REGISTER_ERROR,
-  NOT_EMPTY,
-  VALIDATE_ERROR,
-} from './../../common/constants/code';
+import { REGISTER_ERROR } from './../../common/constants/code';
 import { Result } from './../../common/dto/result.type';
 import { UserService } from './../user/user.service';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';

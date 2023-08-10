@@ -13,6 +13,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { StudentModule } from './modules/student/student.module';
 import { CourseModule } from './modules/course/course.module';
 import { TeacherModule } from './modules/teacher/teacher.module';
+import { WxpayModule } from './modules/wxpay/wxpay.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { TeacherModule } from './modules/teacher/teacher.module';
     CardModule,
     ProductModule,
     TeacherModule,
+    WxpayModule,
   ],
   controllers: [AppController],
   providers: [AppService],

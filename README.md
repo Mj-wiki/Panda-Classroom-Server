@@ -50,3 +50,8 @@ https://dysms.console.aliyun.com/quickstart
 1. 坐标转换问题： https://github.com/wandergis/coordtransform
 2. 性能优化的问题：（先缩小范围再去排序）geohash https://github.com/sunng87/node-geohash
 
+## 微信公众号网页授权文档
+1. 网页授权：https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html
+2. 查看微信接口权限：https://mp.weixin.qq.com/advanced/advanced?action=table&token=360474277&lang=zh_CN
+3. 配置微信允许的域名：https://mp.weixin.qq.com/cgi-bin/settingpage?t=setting/function&action=function&token=360474277&lang=zh_CN
+
