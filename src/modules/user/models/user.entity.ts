@@ -29,16 +29,10 @@ export class User {
   tel: string;
 
   @Column({
-    comment: '密码',
+    comment: '头像',
     nullable: true,
   })
-  password: string;
-
-  @Column({
-    comment: '账户',
-    nullable: true,
-  })
-  account: string;
+  avatar: string;
 
   @Column({
     comment: '验证码',

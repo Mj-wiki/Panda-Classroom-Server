@@ -4,11 +4,24 @@
 
 type UserType {
   id: String!
+
+  """昵称"""
   name: String!
+
+  """简介"""
   desc: String!
 
-  """账户信息"""
-  account: String!
+  """tel"""
+  tel: String!
+
+  """头像"""
+  avatar: String
+}
+
+type Result {
+  code: Int!
+  message: String
+  data: String
 }
 
 type OSSType {
@@ -26,17 +39,17 @@ type OSSType {
 
   """host"""
   host: String!
-}
 
-type Result {
-  code: Int!
-  message: String!
-  data: String
+  """dir"""
+  dir: String!
 }
 
 type Query {
   """使用 ID 查询用户"""
   find(id: String!): UserType!
+
+  """使用 ID 查询用户"""
+  getUserInfo: UserType!
 
   """获取 oss 相关信息"""
   getOSSInfo: OSSType!
@@ -47,7 +60,7 @@ type Mutation {
   create(params: UserInput!): Boolean!
 
   """更新用户"""
-  update(id: String!, params: UserInput!): Boolean!
+  updateUserInfo(id: String!, params: UserInput!): Result!
 
   """删除一个用户"""
   del(id: String!): Boolean!
@@ -60,6 +73,12 @@ type Mutation {
 }
 
 input UserInput {
+  """昵称"""
   name: String!
+
+  """简介"""
   desc: String!
+
+  """头像"""
+  avatar: String!
 }

@@ -12,4 +12,6 @@ export class OSSType {
   accessId: string;
   @Field({ description: 'host' })
   host: string;
+  @Field({ description: 'dir' })
+  dir: string;
 }

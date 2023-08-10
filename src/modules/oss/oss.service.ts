@@ -44,6 +44,7 @@ export class OSSService {
       signature: formData.Signature,
       accessId: formData.OSSAccessKeyId,
       host,
+      dir: 'images/',
     };
 
     return params;
