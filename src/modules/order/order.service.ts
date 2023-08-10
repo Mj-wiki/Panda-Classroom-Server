@@ -55,7 +55,7 @@ export class OrderService {
       where: {
         outTradeNo,
       },
-      relations: ['org'],
+      relations: ['org', 'product', 'student'],
     });
   }
 

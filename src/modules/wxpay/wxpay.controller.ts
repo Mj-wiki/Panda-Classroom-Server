@@ -105,10 +105,9 @@ export class WxpayController {
     res.redirect(`
       https://open.weixin.qq.com/connect/oauth2/authorize?appid=${
         process.env.WXPAY_APPID
-      }
-      &redirect_uri=${
-        process.env.WXPAY_URL
-      }/wx/wxCode&response_type=code&scope=snsapi_base&state=${userId}@${encodeURIComponent(
+      }&redirect_uri=${
+      process.env.WXPAY_URL
+    }/wx/wxCode&response_type=code&scope=snsapi_base&state=${userId}@${encodeURIComponent(
       url,
     )}#wechat_redirect
     `);
@@ -124,8 +123,7 @@ export class WxpayController {
   ) {
     const [userId, url] = state.split('@');
     const response = await axios.get(
-      `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${process.env.WXPAY_APPID}
-      &secret=${process.env.WXPAY_APPSECRET}&code=${code}&grant_type=authorization_code`,
+      `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${process.env.WXPAY_APPID}&secret=${process.env.WXPAY_APPSECRET}&code=${code}&grant_type=authorization_code`,
     );
     const { openid } = response.data;
     await this.studentService.updateById(userId, {

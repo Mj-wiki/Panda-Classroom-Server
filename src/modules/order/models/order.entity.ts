@@ -55,6 +55,6 @@ export class Order extends CommonEntity {
   })
   student: Student;
 
-  @OneToOne(() => Wxorder, { cascade: true })
+  @OneToOne(() => Wxorder, (wxorder) => wxorder.order, { cascade: true })
   wxOrder?: Wxorder;
 }

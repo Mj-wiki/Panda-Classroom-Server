@@ -30,7 +30,7 @@ export class OSSService {
     };
 
     // bucket域名
-    const host = `http://${config.bucket}.${
+    const host = `https://${config.bucket}.${
       (await client.getBucketLocation()).location
     }.aliyuncs.com`.toString();
     //签名
