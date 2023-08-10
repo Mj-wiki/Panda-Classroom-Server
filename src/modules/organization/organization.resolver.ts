@@ -1,5 +1,11 @@
+import { Organization } from '@/modules/organization/models/organization.entity';
+import { FindOptionsWhere, Like } from 'typeorm';
 import { OrgImageService } from './../orgImage/orgImage.service';
-import { ORG_NOT_EXIST, ORG_FAIL } from './../../common/constants/code';
+import {
+  ORG_NOT_EXIST,
+  ORG_FAIL,
+  ORG_DEL_FAIL,
+} from './../../common/constants/code';
 import { Result } from '@/common/dto/result.type';
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
@@ -92,11 +98,18 @@ export class OrganizationResolver {
   @Query(() => OrganizationResults)
   async getOrganizations(
     @Args('page') page: PageInput,
+    @CurUserId() userId: string,
+    @Args('name', { nullable: true }) name?: string,
   ): Promise<OrganizationResults> {
     const { pageNum, pageSize } = page;
+    const where: FindOptionsWhere<Organization> = { createdBy: userId };
+    if (name) {
+      where.name = Like(`%${name}%`);
+    }
     const [results, total] = await this.organizationService.findOrganizations({
       start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
       length: pageSize,
+      where,
     });
     return {
       code: SUCCESS,
@@ -107,6 +120,31 @@ export class OrganizationResolver {
         total,
       },
       message: '获取成功',
+    };
+  }
+
+  @Mutation(() => Result)
+  async deleteOrganization(
+    @Args('id') id: string,
+    @CurUserId() userId: string,
+  ): Promise<Result> {
+    const result = await this.organizationService.findById(id);
+    if (result) {
+      const delRes = await this.organizationService.deleteById(id, userId);
+      if (delRes) {
+        return {
+          code: SUCCESS,
+          message: '删除成功',
+        };
+      }
+      return {
+        code: ORG_DEL_FAIL,
+        message: '删除失败',
+      };
+    }
+    return {
+      code: ORG_NOT_EXIST,
+      message: '门店信息不存在',
     };
   }
 }
