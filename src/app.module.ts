@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
+import { OSSModule } from './modules/oss/oss.module';
 
 @Module({
   imports: [
@@ -23,8 +24,10 @@ import { UserModule } from './modules/user/user.module';
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       autoSchemaFile: './schema.gql',
+      federationMetadata: false,
     }),
     UserModule,
+    OSSModule,
   ],
   controllers: [AppController],
   providers: [AppService],
