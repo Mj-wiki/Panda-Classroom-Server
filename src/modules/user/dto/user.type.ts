@@ -1,8 +1,5 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 
-/**
- * 用户
- */
 @ObjectType()
 export class UserType {
   @Field()
@@ -11,8 +8,6 @@ export class UserType {
   name?: string;
   @Field()
   desc: string;
-  @Field()
+  @Field({ description: '账户信息' })
   account: string;
-  @Field()
-  type: string;
 }

@@ -1,4 +1,6 @@
+import { ApolloDriver } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -17,6 +19,10 @@ import { UserModule } from './modules/user/user.module';
       logging: true,
       synchronize: true,
       autoLoadEntities: true,
+    }),
+    GraphQLModule.forRoot({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
     }),
     UserModule,
   ],
