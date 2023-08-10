@@ -24,4 +24,20 @@ export class StudentService {
     }
     return false;
   }
+
+  async findById(id: string): Promise<Student> {
+    return this.studentRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async updateById(id: string, entity: DeepPartial<Student>): Promise<boolean> {
+    const res = await this.studentRepository.update(id, entity);
+    if (res.affected > 0) {
+      return true;
+    }
+    return false;
+  }
 }

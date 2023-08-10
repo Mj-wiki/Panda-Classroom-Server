@@ -1,15 +1,7 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 
-/**
- * 学员
- */
-@ObjectType()
-export class StudentType {
-  @Field({
-    description: 'id',
-  })
-  id: string;
-
+@InputType()
+export class StudentInput {
   @Field({
     description: '昵称',
   })
@@ -22,7 +14,6 @@ export class StudentType {
 
   @Field({
     description: '头像',
-    nullable: true,
   })
   avatar: string;
 }
