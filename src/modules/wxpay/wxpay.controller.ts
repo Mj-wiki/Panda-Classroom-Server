@@ -1,13 +1,38 @@
-import { Controller, Get, Query, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Post,
+  Query,
+  Res,
+} from '@nestjs/common';
 import axios from 'axios';
 import { StudentService } from '../student/student.service';
+import { IWxpayResult } from './dto/wxpay-result.type';
+import WxPay from 'wechatpay-node-v3';
+import { WECHAT_PAY_MANAGER } from 'nest-wechatpay-node-v3';
 
 /**
  * www.sss.com/wx/wxpay
  */
 @Controller('wx')
 export class WxpayController {
-  constructor(private readonly studentService: StudentService) {}
+  constructor(
+    private readonly studentService: StudentService,
+    @Inject(WECHAT_PAY_MANAGER) private wxPay: WxPay,
+  ) {}
+
+  @Post('wxpayResult')
+  async wxpayResult(@Body() data: IWxpayResult) {
+    const result = this.wxPay.decipher_gcm(
+      data.resource.ciphertext,
+      data.resource.associated_data,
+      data.resource.nonce,
+      process.env.WXPAY_APIV3KEY,
+    );
+  }
+
   // /wx/login
   @Get('login')
   async wxLogin(

@@ -13,7 +13,7 @@ import WxPay from 'wechatpay-node-v3';
 import { WECHAT_PAY_MANAGER } from 'nest-wechatpay-node-v3';
 import { v4 as uuidv4 } from 'uuid';
 import { ProductService } from '../product/product.service';
-import { WxConfig } from './dto/wxConfig.type';
+import { WxConfig } from './dto/wx-config.type';
 
 @Resolver()
 @UseGuards(GqlAuthGuard)
