@@ -1,9 +1,17 @@
 import { Organization } from '@/modules/organization/models/organization.entity';
 import { CommonEntity } from '@/common/entities/common.entity';
 import { IsInt, IsNotEmpty, Min } from 'class-validator';
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { ReducibleTimeType } from '../dto/common.type';
 import { Card } from '@/modules/card/models/card.entity';
+import { Teacher } from '@/modules/teacher/models/teacher.entity';
 
 /**
  * 组件
@@ -67,6 +75,12 @@ export class Course extends CommonEntity {
   })
   otherInfo: string;
 
+  @Column({
+    comment: '封面图',
+    nullable: true,
+  })
+  coverUrl: string;
+
   @Column('simple-json', {
     comment: '可约时间',
     nullable: true,
@@ -80,4 +94,10 @@ export class Course extends CommonEntity {
 
   @OneToMany(() => Card, (org) => org.course)
   cards: Card;
+
+  @ManyToMany(() => Teacher, { cascade: true })
+  @JoinTable({
+    name: 'course_teacher',
+  })
+  teachers: Teacher[];
 }

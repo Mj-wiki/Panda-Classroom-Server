@@ -1,5 +1,5 @@
 import { CurOrgId } from './../../common/decorators/current-org.decorator';
-import { FindOptionsWhere, Like } from 'typeorm';
+import { DeepPartial, FindOptionsWhere, Like } from 'typeorm';
 import { Course } from './models/course.entity';
 import {
   COURSE_CREATE_FAIL,
@@ -50,6 +50,7 @@ export class CourseResolver {
     if (!id) {
       const res = await this.courseService.create({
         ...params,
+        teachers: params.teachers.map((item) => ({ id: item })),
         createdBy: userId,
         org: {
           id: orgId,
@@ -68,10 +69,15 @@ export class CourseResolver {
     }
     const course = await this.courseService.findById(id);
     if (course) {
-      const res = await this.courseService.updateById(course.id, {
+      const courseInput: DeepPartial<Course> = {
         ...params,
         updatedBy: userId,
-      });
+        teachers: course.teachers,
+      };
+      if (params.teachers) {
+        courseInput.teachers = params.teachers.map((item) => ({ id: item }));
+      }
+      const res = await this.courseService.updateById(course.id, courseInput);
       if (res) {
         return {
           code: SUCCESS,

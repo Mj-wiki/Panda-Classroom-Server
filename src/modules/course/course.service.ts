@@ -24,6 +24,7 @@ export class CourseService {
       where: {
         id,
       },
+      relations: ['teachers'],
     });
   }
 

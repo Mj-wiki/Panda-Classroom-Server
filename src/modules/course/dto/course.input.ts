@@ -1,5 +1,6 @@
 import { Field, InputType, PartialType } from '@nestjs/graphql';
 import { ReducibleTimeInput } from './common.input';
+import { TeacherInput } from '@/modules/teacher/dto/teacher.input';
 
 @InputType()
 export class CourseInput {
@@ -23,6 +24,11 @@ export class CourseInput {
     description: '适合基础',
   })
   baseAbility: string;
+
+  @Field({
+    description: '封面图',
+  })
+  coverUrl: string;
 
   @Field({
     description: '限制上课人数',
@@ -57,6 +63,12 @@ export class CourseInput {
     nullable: true,
   })
   reducibleTime: ReducibleTimeInput[];
+
+  @Field(() => [String], {
+    description: '任课老师',
+    nullable: true,
+  })
+  teachers: string[];
 }
 
 @InputType()

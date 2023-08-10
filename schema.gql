@@ -33,6 +33,45 @@ type ReducibleTimeType {
   orderTime: [OrderTimeType!]!
 }
 
+type TeacherType {
+  id: String!
+  createdAt: DateTime!
+  createdBy: String
+  updatedAt: DateTime
+  updatedBy: String
+  deletedAt: DateTime
+  deletedBy: String
+
+  """名称"""
+  name: String!
+
+  """照片"""
+  photoUrl: String
+
+  """教龄"""
+  teacherTime: Float
+
+  """风格标签，以，隔开"""
+  tags: String
+
+  """学历"""
+  education: String
+
+  """资历"""
+  seniority: String
+
+  """职业经验"""
+  experience: String
+
+  """获奖经历"""
+  carryPrize: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type CourseType {
   id: String!
   createdAt: DateTime!
@@ -50,6 +89,9 @@ type CourseType {
 
   """适龄人群"""
   group: String!
+
+  """封面图"""
+  coverUrl: String
 
   """适合基础"""
   baseAbility: String!
@@ -71,12 +113,10 @@ type CourseType {
 
   """可约时间"""
   reducibleTime: [ReducibleTimeType!]
-}
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
+  """任课老师"""
+  teachers: [TeacherType!]
+}
 
 type CardType {
   """id"""
@@ -479,40 +519,6 @@ type CourseResults {
   page: Page
 }
 
-type TeacherType {
-  id: String!
-  createdAt: DateTime!
-  createdBy: String
-  updatedAt: DateTime
-  updatedBy: String
-  deletedAt: DateTime
-  deletedBy: String
-
-  """名称"""
-  name: String!
-
-  """照片"""
-  photoUrl: String
-
-  """教龄"""
-  teacherTime: Float
-
-  """风格标签，以，隔开"""
-  tags: String
-
-  """学历"""
-  education: String
-
-  """资历"""
-  seniority: String
-
-  """职业经验"""
-  experience: String
-
-  """获奖经历"""
-  carryPrize: String
-}
-
 type TeacherResult {
   code: Int!
   message: String!
@@ -710,6 +716,9 @@ input PartialCourseInput {
   """适合基础"""
   baseAbility: String
 
+  """封面图"""
+  coverUrl: String
+
   """限制上课人数"""
   limitNumber: Float
 
@@ -727,6 +736,9 @@ input PartialCourseInput {
 
   """可约时间"""
   reducibleTime: [ReducibleTimeInput!]
+
+  """任课老师"""
+  teachers: [String!]
 }
 
 input ReducibleTimeInput {
