@@ -66,6 +66,7 @@ export class CardRecordService {
       where: {
         id,
       },
+      relations: ['card'],
     });
   }
 

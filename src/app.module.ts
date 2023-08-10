@@ -2,6 +2,7 @@ import { CardModule } from './modules/card/card.module';
 import { OrganizationModule } from './modules/organization/organization.module';
 import { ApolloDriver } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
+import { ScheduleRecordModule } from './modules/schedule-record/schedule-record.module';
 import { ScheduleModule } from './modules/schedule/schedule.module';
 import { CardRecordModule } from './modules/cardRecord/card-record.module';
 import { WxorderModule } from './modules/wxorder/wxorder.module';
@@ -51,6 +52,7 @@ import { WxpayModule } from './modules/wxpay/wxpay.module';
     WxorderModule,
     CardRecordModule,
     ScheduleModule,
+    ScheduleRecordModule,
   ],
   controllers: [AppController],
   providers: [AppService],
