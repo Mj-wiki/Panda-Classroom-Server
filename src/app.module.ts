@@ -24,7 +24,6 @@ import { OSSModule } from './modules/oss/oss.module';
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       autoSchemaFile: './schema.gql',
-      federationMetadata: false,
     }),
     UserModule,
     OSSModule,
