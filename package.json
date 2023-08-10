@@ -43,13 +43,16 @@
     "graphql": "^16.6.0",
     "md5": "^2.3.0",
     "mysql2": "^2.3.3",
+    "nest-wechatpay-node-v3": "^1.0.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "type-graphql": "^1.1.1",
-    "typeorm": "^0.3.10"
+    "typeorm": "^0.3.10",
+    "uuid": "^9.0.0",
+    "wechatpay-node-v3": "^2.1.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

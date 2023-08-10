@@ -35,6 +35,7 @@ specifiers:
   jest: 28.1.3
   md5: ^2.3.0
   mysql2: ^2.3.3
+  nest-wechatpay-node-v3: ^1.0.1
   passport: ^0.6.0
   passport-jwt: ^4.0.1
   plop: ^3.1.2
@@ -51,6 +52,8 @@ specifiers:
   type-graphql: ^1.1.1
   typeorm: ^0.3.10
   typescript: ~4.7.4
+  uuid: ^9.0.0
+  wechatpay-node-v3: ^2.1.4
 
 dependencies:
   '@alicloud/dysmsapi20170525': 2.0.23
@@ -74,6 +77,7 @@ dependencies:
   graphql: 16.6.0
   md5: 2.3.0
   mysql2: 2.3.3
+  nest-wechatpay-node-v3: 1.0.1
   passport: 0.6.0
   passport-jwt: 4.0.1
   reflect-metadata: 0.1.13
@@ -81,6 +85,8 @@ dependencies:
   rxjs: 7.5.6
   type-graphql: 1.1.1_rq55dqxpbhywxwjvxttjguy4yy
   typeorm: 0.3.10_pa4ea3wjef6s4gsskhbyci3cte
+  uuid: 9.0.0
+  wechatpay-node-v3: 2.1.4
 
 devDependencies:
   '@nestjs/cli': 9.1.2
@@ -751,6 +757,19 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@fidm/asn1/1.0.4:
+    resolution: {integrity: sha512-esd1jyNvRb2HVaQGq2Gg8Z0kbQPXzV9Tq5Z14KNIov6KfFD6PTaRIO8UpcsYiTNzOqJpmyzWgVTrUwFV3UF4TQ==}
+    engines: {node: '>= 8'}
+    dev: false
+
+  /@fidm/x509/1.2.1:
+    resolution: {integrity: sha512-nwc2iesjyc9hkuzcrMCBXQRn653XuAUKorfWM8PZyJawiy1QzLj4vahwzaI25+pfpwOLvMzbJ0uKpWLDNmo16w==}
+    engines: {node: '>= 8'}
+    dependencies:
+      '@fidm/asn1': 1.0.4
+      tweetnacl: 1.0.3
+    dev: false
 
   /@graphql-tools/merge/8.3.1_graphql@16.6.0:
     resolution: {integrity: sha512-BMm99mqdNZbEYeTPK3it9r9S6rsZsQKtlqJsSBknAclXq2pGEfOxjcIZi+kBSkHZKPKCRrYDd5vY0+rUmIHVLg==}
@@ -2359,7 +2378,6 @@ packages:
 
   /asap/2.0.6:
     resolution: {integrity: sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==}
-    dev: true
 
   /ast-types/0.13.4:
     resolution: {integrity: sha512-x1FCFnFifvYDDzTaLII71vG5uvDwgtmDTEVWAxrgeiR8VjMONcCXJx7E+USjDtHlwFmt9MysbqgF9b9Vjr6w+w==}
@@ -2821,7 +2839,6 @@ packages:
 
   /component-emitter/1.3.0:
     resolution: {integrity: sha512-Rd3se6QB+sO1TwqZjscQrurpEPIfO0/yYnSin6Q/rD3mOutHvUrCAhJub3r90uNb+SESBuE0QYoB90YdfatsRg==}
-    dev: true
 
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
@@ -2869,9 +2886,8 @@ packages:
     resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
     engines: {node: '>= 0.6'}
 
-  /cookiejar/2.1.3:
-    resolution: {integrity: sha512-JxbCBUdrfr6AQjOXrxoTvAMJO4HBTUIlBzslcJPAz+/KT8yk53fXun51u+RenNYvad/+Vc2DIz5o9UxlCDymFQ==}
-    dev: true
+  /cookiejar/2.1.4:
+    resolution: {integrity: sha512-LDx6oHrK+PhzLKJU9j5S7/Y3jM/mUHvD/DeI1WQmJn652iPC5Y4TBzC9l+5OMOXlyTTA+SmVUPm0HQUwpD5Jqw==}
 
   /copy-to/2.0.1:
     resolution: {integrity: sha512-3DdaFaU/Zf1AnpLiFDeNCD4TOWe3Zl2RZaTzUvWiIk5ERzcCodOE20Vqq4fzCbNoHURFHT4/us/Lfq+S2zyY4w==}
@@ -3033,12 +3049,11 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /dezalgo/1.0.3:
-    resolution: {integrity: sha512-K7i4zNfT2kgQz3GylDw40ot9GAE47sFZ9EXHFSPP6zONLgH6kWXE0KWJchkbQJLBkRazq4APwZ4OwiFFlT95OQ==}
+  /dezalgo/1.0.4:
+    resolution: {integrity: sha512-rXSP0bf+5n0Qonsb+SVVfNfIsimO4HEtmnIpPHY8Q1UCzKlQrDMfdobr8nJOOsRgWCyMRqeSBQzmWUMq7zvVig==}
     dependencies:
       asap: 2.0.6
       wrappy: 1.0.2
-    dev: true
 
   /diff-sequences/28.1.1:
     resolution: {integrity: sha512-FU0iFaH/E23a+a718l8Qa/19bF9p06kgE0KipMOMadwa3SjnaElKzPaUC0vnibs6/B/9ni97s61mcejk8W1fQw==}
@@ -3633,14 +3648,13 @@ packages:
       combined-stream: 1.0.8
       mime-types: 2.1.35
 
-  /formidable/2.0.1:
-    resolution: {integrity: sha512-rjTMNbp2BpfQShhFbR3Ruk3qk2y9jKpvMW78nJgx8QKtxjDVrwbZG+wvDOmVbifHyOUOQJXxqEy6r0faRrPzTQ==}
+  /formidable/2.1.2:
+    resolution: {integrity: sha512-CM3GuJ57US06mlpQ47YcunuUZ9jpm8Vx+P2CGt2j7HpgkKZO/DJYQ0Bobim8G6PFQmK5lOqOOdUXboU+h73A4g==}
     dependencies:
-      dezalgo: 1.0.3
+      dezalgo: 1.0.4
       hexoid: 1.0.0
       once: 1.4.0
-      qs: 6.9.3
-    dev: true
+      qs: 6.11.0
 
   /formstream/1.1.1:
     resolution: {integrity: sha512-yHRxt3qLFnhsKAfhReM4w17jP+U1OlhUjnKPPtonwKbIJO7oBP0MvoxkRUwb8AU9n0MIkYy5X5dK6pQnbj+R2Q==}
@@ -3935,7 +3949,6 @@ packages:
   /hexoid/1.0.0:
     resolution: {integrity: sha512-QFLV0taWQOZtvIRIAdBChesmogZrtuXvVWsFHZTk2SU+anspqZ2vMnoLg7IE1+Uk16N19APic1BuF8bC8c2m5g==}
     engines: {node: '>=8'}
-    dev: true
 
   /highlight.js/10.7.3:
     resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==}
@@ -4675,7 +4688,7 @@ packages:
       jest-util: 28.1.3
       natural-compare: 1.4.0
       pretty-format: 28.1.3
-      semver: 7.3.7
+      semver: 7.3.8
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5143,7 +5156,7 @@ packages:
     hasBin: true
 
   /ms/2.0.0:
-    resolution: {integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=}
+    resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
 
   /ms/2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
@@ -5218,6 +5231,10 @@ packages:
   /neo-async/2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
+
+  /nest-wechatpay-node-v3/1.0.1:
+    resolution: {integrity: sha512-zIpKoKvNHeMEJZAjSUBrbhB884/WwjogamKVqbZyJ5Kx0oHGh3mZEuHaDb/VEThyWafXLWGz2epM5ZznnV5a+Q==}
+    dev: false
 
   /netmask/2.0.2:
     resolution: {integrity: sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==}
@@ -5778,11 +5795,6 @@ packages:
     dependencies:
       side-channel: 1.0.4
 
-  /qs/6.9.3:
-    resolution: {integrity: sha512-EbZYNarm6138UKKq46tdx08Yo/q9ZhFoAXAI1meAFd2GtbRDhbZY2WQSICskT0c5q99aFzLG1D4nvTk9tqfXIw==}
-    engines: {node: '>=0.6'}
-    dev: true
-
   /queue-microtask/1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
@@ -6025,7 +6037,6 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
-    dev: false
 
   /send/0.18.0:
     resolution: {integrity: sha512-qqWzuOjSFOuqPjFe4NOsMLafToQQwBSOEpS+FwEt3A2V3vKubTquT3vmLTQpFgMXp8AlFWFuP1qKaJZOtPpVXg==}
@@ -6333,19 +6344,37 @@ packages:
     engines: {node: '>=6.4.0 <13 || >=14'}
     dependencies:
       component-emitter: 1.3.0
-      cookiejar: 2.1.3
+      cookiejar: 2.1.4
       debug: 4.3.4
       fast-safe-stringify: 2.1.1
       form-data: 4.0.0
-      formidable: 2.0.1
+      formidable: 2.1.2
       methods: 1.1.2
       mime: 2.6.0
       qs: 6.11.0
       readable-stream: 3.6.0
-      semver: 7.3.7
+      semver: 7.3.8
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /superagent/8.0.9:
+    resolution: {integrity: sha512-4C7Bh5pyHTvU33KpZgwrNKh/VQnvgtCSqPRfJAUdmrtSYePVzVg4E4OzsrbkhJj9O7SO6Bnv75K/F8XVZT8YHA==}
+    engines: {node: '>=6.4.0 <13 || >=14'}
+    dependencies:
+      component-emitter: 1.3.0
+      cookiejar: 2.1.4
+      debug: 4.3.4
+      fast-safe-stringify: 2.1.1
+      form-data: 4.0.0
+      formidable: 2.1.2
+      methods: 1.1.2
+      mime: 2.6.0
+      qs: 6.11.0
+      semver: 7.3.8
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /supertest/6.2.4:
     resolution: {integrity: sha512-M8xVnCNv+q2T2WXVzxDECvL2695Uv2uUj2O0utxsld/HRyJvOU8W9f1gvsYxSNU4wmIe0/L/ItnpU4iKq0emDA==}
@@ -6632,6 +6661,10 @@ packages:
       tslib: 1.14.1
       typescript: 4.7.4
     dev: true
+
+  /tweetnacl/1.0.3:
+    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
+    dev: false
 
   /type-check/0.3.2:
     resolution: {integrity: sha512-ZCmOJdvOWDBYJlzAoFkC+Q0+bUyEOS1ltgp1MGU03fqHG+dbi9tBFU2Rd9QKiDZFAYrhPh2JUf7rZRIuHRKtOg==}
@@ -7002,6 +7035,15 @@ packages:
       - esbuild
       - uglify-js
     dev: true
+
+  /wechatpay-node-v3/2.1.4:
+    resolution: {integrity: sha512-t47MQAulybFZmBPVtnXwmD6+H1xEVtmyrh9y3j7zu0pCLOcqKjwX7eKeVSOWMNaV0lB6DJCjMtQ3fbQRG7yNZQ==}
+    dependencies:
+      '@fidm/x509': 1.2.1
+      superagent: 8.0.9
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /whatwg-mimetype/3.0.0:
     resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}
