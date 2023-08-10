@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository, FindOptionsWhere } from 'typeorm';
 import { Product } from './models/product.entity';
+import { ProductStatus } from '@/common/constants/enmu';
 @Injectable()
 export class ProductService {
   constructor(
@@ -26,6 +27,10 @@ export class ProductService {
       },
       relations: ['org', 'cards', 'cards.course'],
     });
+  }
+
+  async getCount(options) {
+    return this.productRepository.count(options);
   }
 
   async updateById(id: string, entity: DeepPartial<Product>): Promise<boolean> {
@@ -59,6 +64,45 @@ export class ProductService {
       },
       relations: ['org'],
     });
+  }
+
+  /**
+   * 按照坐标距离排序
+   * @param param0
+   * @returns
+   */
+  async findProductsOrderByDistance({
+    start,
+    length,
+    where,
+    position,
+  }: {
+    start: number;
+    length: number;
+    where: FindOptionsWhere<Product>;
+    position: {
+      latitude: number;
+      longitude: number;
+    };
+  }): Promise<{ entities: Product[]; raw: any[] }> {
+    return this.productRepository
+      .createQueryBuilder('product')
+      .select('product')
+      .addSelect(
+        `
+      ST_Distance(ST_GeomFromText('POINT(${position.latitude} ${position.longitude})', 4326), 
+      ST_GeomFromText(CONCAT('POINT(', organization.latitude, ' ', organization.longitude, ')'), 4326))
+    `,
+        'distance',
+      )
+      .innerJoinAndSelect('product.org', 'organization')
+      .where(`product.status = '${ProductStatus.LIST}'`)
+      .andWhere(`product.name LIKE '%${where.name || ''}%'`)
+      .andWhere(where.type ? `product.type = '${where.type}'` : '1=1')
+      .orderBy('distance', 'ASC')
+      .take(length)
+      .skip(start)
+      .getRawAndEntities();
   }
 
   async deleteById(id: string, userId: string): Promise<boolean> {

@@ -179,6 +179,8 @@ export class ProductResolver {
   @Query(() => ProductResults)
   async getProductsForH5(
     @Args('page') page: PageInput,
+    @Args('latitude') latitude: number, // 纬度
+    @Args('longitude') longitude: number, // 经度
     @Args('type', { nullable: true }) type?: string,
     @Args('name', { nullable: true }) name?: string,
   ): Promise<ProductResults> {
@@ -187,20 +189,28 @@ export class ProductResolver {
       status: ProductStatus.LIST,
     };
     if (name) {
-      where.name = Like(`%${name}%`);
+      where.name = name;
     }
     if (type) {
       where.type = type;
     }
-    const [results, total] = await this.productService.findProducts({
-      start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
-      length: pageSize,
+    const { entities, raw } =
+      await this.productService.findProductsOrderByDistance({
+        start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
+        length: pageSize,
+        where,
+        position: {
+          latitude,
+          longitude,
+        },
+      });
+    const total = await this.productService.getCount({
       where,
     });
     return {
       code: SUCCESS,
-      data: results.map((item) => {
-        const distance = Math.random() * 10000;
+      data: entities.map((item, index) => {
+        const distance = raw[index].distance;
         let distanceLabel = '>5km';
         if (distance < 1000 && distance > 0) {
           distanceLabel = `${parseInt(distance.toString(), 10)}m`;
