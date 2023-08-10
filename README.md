@@ -93,3 +93,9 @@ https://water-drop.yondu.vip
 ## 使用 docker
 - 构建镜像：`docker build -t server:v1 .`
 - 阿里云镜像服务：https://cr.console.aliyun.com/cn-beijing/instances
+- docker 文档：https://www.runoob.com/docker/docker-tutorial.html
+
+## docker 里安装 mysql
+- 文档：https://www.runoob.com/docker/docker-install-mysql.html
+- docker pull mysql:latest
+- 启动 mysql 镜像并初始化数据：docker run -itd  --name mysql-test -p 3316:3306 -v init:/docker-entrypoint-initdb.d  -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=test mysql 
