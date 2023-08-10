@@ -61,4 +61,8 @@ https://dysms.console.aliyun.com/quickstart
 3. 第三方微信支付 SDK：https://github.com/klover2/wechatpay-node-v3-ts
 
 ## 线上体验地址
-http://water-drop.yondu.vip
+https://water-drop.yondu.vip
+
+## 如何测试
+安装所需的包：pnpm i sqlite3 -D
+nestjs 测试文档：https://docs.nestjs.com/fundamentals/testing#testing-utilities

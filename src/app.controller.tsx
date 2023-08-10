@@ -4,14 +4,19 @@ import { UserService } from './modules/user/user.service';
 import * as ReactDOMServer from 'react-dom/server';
 import * as React from 'react';
 import { HelloWorld } from './HelloWorld';
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly appService: AppService,
+  ) {}
 
   @Get('/create')
-  async create(): Promise<boolean> {
+  async create(id: string): Promise<boolean> {
     return await this.userService.create({
+      id,
       name: '水滴超级管理员',
       desc: '管理员',
       tel: '8800888',
@@ -34,8 +39,13 @@ export class AppController {
   }
 
   @Get('/find')
-  async find(): Promise<User> {
-    return await this.userService.find('cb71e40d-9f15-40ef-a137-1acaa38831f4');
+  async find(id: string): Promise<User> {
+    return await this.userService.find(id);
+  }
+
+  @Get('/getHello')
+  async getHello(): Promise<string> {
+    return this.appService.getHello();
   }
 
   @Get('/html')
