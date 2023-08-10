@@ -3,6 +3,7 @@ import { OrgImage } from './../../orgImage/models/orgImage.entity';
 import { IsNotEmpty } from 'class-validator';
 import { CommonEntity } from '@/common/entities/common.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
+import { Card } from '@/modules/card/models/card.entity';
 
 /**
  * 组件
@@ -95,4 +96,7 @@ export class Organization extends CommonEntity {
 
   @OneToMany(() => Course, (course) => course.org)
   courses: Course[];
+
+  @OneToMany(() => Card, (card) => card.org)
+  cards: Card;
 }

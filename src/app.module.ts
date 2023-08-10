@@ -1,3 +1,4 @@
+import { CardModule } from './modules/card/card.module';
 import { OrganizationModule } from './modules/organization/organization.module';
 import { ApolloDriver } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
@@ -35,6 +36,7 @@ import { CourseModule } from './modules/course/course.module';
     StudentModule,
     OrganizationModule,
     CourseModule,
+    CardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
