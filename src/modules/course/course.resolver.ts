@@ -10,9 +10,9 @@ import { Result } from '@/common/dto/result.type';
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '@/common/guards/auth.guard';
-import { SUCCESS, STUDENT_NOT_EXIST } from '@/common/constants/code';
+import { SUCCESS } from '@/common/constants/code';
 import { CourseResult, CourseResults } from './dto/result-course.output';
-import { CourseInput } from './dto/course.input';
+import { CourseInput, PartialCourseInput } from './dto/course.input';
 import { CourseType } from './dto/course.type';
 import { CourseService } from './course.service';
 import { CurUserId } from '@/common/decorators/current-user.decorator';
@@ -41,7 +41,7 @@ export class CourseResolver {
 
   @Mutation(() => CourseResult)
   async commitCourseInfo(
-    @Args('params') params: CourseInput,
+    @Args('params') params: PartialCourseInput,
     @CurUserId() userId: string,
     @Args('id', { nullable: true }) id: string,
   ): Promise<Result> {
