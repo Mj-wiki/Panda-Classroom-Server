@@ -119,12 +119,18 @@ export class ProductResolver {
   async getProducts(
     @Args('page') page: PageInput,
     @CurUserId() userId: string,
+    @CurOrgId() orgId: string,
     @Args('name', { nullable: true }) name?: string,
   ): Promise<ProductResults> {
     const { pageNum, pageSize } = page;
     const where: FindOptionsWhere<Product> = { createdBy: userId };
     if (name) {
       where.name = Like(`%${name}%`);
+    }
+    if (orgId) {
+      where.org = {
+        id: orgId,
+      };
     }
     const [results, total] = await this.productService.findProducts({
       start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
@@ -165,6 +171,37 @@ export class ProductResolver {
     return {
       code: PRODUCT_NOT_EXIST,
       message: '商品信息不存在',
+    };
+  }
+
+  @Query(() => ProductResults)
+  async getProductsForH5(
+    @Args('page') page: PageInput,
+    @Args('type', { nullable: true }) type?: string,
+    @Args('name', { nullable: true }) name?: string,
+  ): Promise<ProductResults> {
+    const { pageNum, pageSize } = page;
+    const where: FindOptionsWhere<Product> = {};
+    if (name) {
+      where.name = Like(`%${name}%`);
+    }
+    if (type) {
+      where.type = type;
+    }
+    const [results, total] = await this.productService.findProducts({
+      start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
+      length: pageSize,
+      where,
+    });
+    return {
+      code: SUCCESS,
+      data: results,
+      page: {
+        pageNum,
+        pageSize,
+        total,
+      },
+      message: '获取成功',
     };
   }
 }
