@@ -16,7 +16,6 @@ import { CardInput } from './dto/card.input';
 import { CardType } from './dto/card.type';
 import { CardService } from './card.service';
 import { CurUserId } from '@/common/decorators/current-user.decorator';
-import { PageInput } from '@/common/dto/page.input';
 import { CurOrgId } from '@/common/decorators/current-org.decorator';
 
 @Resolver(() => CardType)
@@ -70,7 +69,7 @@ export class CardResolver {
         message: '创建失败',
       };
     }
-    const card = await this.cardService.findById(userId);
+    const card = await this.cardService.findById(id);
     if (card) {
       const res = await this.cardService.updateById(card.id, {
         ...params,
