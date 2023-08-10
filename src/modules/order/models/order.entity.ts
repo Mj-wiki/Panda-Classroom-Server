@@ -2,7 +2,8 @@ import { CommonEntity } from '@/common/entities/common.entity';
 import { Organization } from '@/modules/organization/models/organization.entity';
 import { Product } from '@/modules/product/models/product.entity';
 import { Student } from '@/modules/student/models/student.entity';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Wxorder } from '@/modules/wxorder/models/wxorder.entity';
+import { Column, Entity, ManyToOne, OneToOne } from 'typeorm';
 
 /**
  * 商品订单实体
@@ -29,11 +30,13 @@ export class Order extends CommonEntity {
 
   @Column({
     comment: '总金额',
+    nullable: true,
   })
   amount: number;
 
   @Column({
     comment: '支付状态',
+    nullable: true,
   })
   status: string;
 
@@ -51,4 +54,7 @@ export class Order extends CommonEntity {
     cascade: true,
   })
   student: Student;
+
+  @OneToOne(() => Wxorder, { cascade: true })
+  wxOrder?: Wxorder;
 }

@@ -14,6 +14,8 @@ import WxPay from 'wechatpay-node-v3';
 import { WECHAT_PAY_MANAGER } from 'nest-wechatpay-node-v3';
 import { OrderStatus } from '@/common/constants/enmu';
 import { OrderService } from '../order/order.service';
+import { WxorderService } from '../wxorder/wxorder.service';
+import { WxorderType } from '../wxorder/dto/wxorder.type';
 
 /**
  * www.sss.com/wx/wxpay
@@ -22,6 +24,7 @@ import { OrderService } from '../order/order.service';
 export class WxpayController {
   constructor(
     private readonly studentService: StudentService,
+    private readonly wxorderService: WxorderService,
     private readonly orderService: OrderService,
     @Inject(WECHAT_PAY_MANAGER) private wxPay: WxPay,
   ) {}
@@ -33,10 +36,7 @@ export class WxpayController {
    */
   @Post('wxpayResult')
   async wxpayResult(@Body() data: IWxpayResult) {
-    const result: {
-      trade_state: string;
-      out_trade_no: string;
-    } = this.wxPay.decipher_gcm(
+    const result: WxorderType = this.wxPay.decipher_gcm(
       data.resource.ciphertext,
       data.resource.associated_data,
       data.resource.nonce,
@@ -45,10 +45,19 @@ export class WxpayController {
     const order = await this.orderService.findByOutTradeNo(result.out_trade_no);
     // 现在只考虑支付中和支付成功两个状态
     if (order && order.status === OrderStatus.USERPAYING) {
-      await this.orderService.updateById(order.id, {
-        status: result.trade_state,
-        // 关联的微信支付信息
-      });
+      let wxOrder = await this.wxorderService.findByTransactionId(
+        result.transaction_id,
+      );
+      if (!wxOrder) {
+        wxOrder = await this.wxorderService.create(result);
+      }
+      if (wxOrder) {
+        await this.orderService.updateById(order.id, {
+          status: result.trade_state,
+          // 关联的微信支付信息
+          wxOrder: wxOrder,
+        });
+      }
     }
     return {
       code: 'SUCCESS',

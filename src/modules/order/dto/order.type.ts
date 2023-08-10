@@ -2,6 +2,7 @@ import { CommonType } from '@/common/dto/common.type';
 import { OrganizationType } from '@/modules/organization/dto/organization.type';
 import { ProductType } from '@/modules/product/dto/product.type';
 import { StudentType } from '@/modules/student/dto/student.type';
+import { WxorderType } from '@/modules/wxorder/dto/wxorder.type';
 import { Field, ObjectType } from '@nestjs/graphql';
 
 /**
@@ -52,4 +53,7 @@ export class OrderType extends CommonType {
 
   @Field(() => ProductType, { nullable: true, description: '商品' })
   product: ProductType;
+
+  @Field(() => WxorderType, { nullable: true, description: '微信订单信息' })
+  wxOrder?: WxorderType;
 }
