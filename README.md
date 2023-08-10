@@ -92,3 +92,4 @@ https://water-drop.yondu.vip
 
 ## 使用 docker
 - 构建镜像：`docker build -t server:v1 .`
+- 阿里云镜像服务：https://cr.console.aliyun.com/cn-beijing/instances
