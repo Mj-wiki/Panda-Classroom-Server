@@ -23,4 +23,10 @@ export class StudentType extends CommonType {
     nullable: true,
   })
   avatar: string;
+
+  @Field({
+    description: '账号',
+    nullable: true,
+  })
+  account: string;
 }
