@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository, FindOptionsWhere } from 'typeorm';
-import { Temp } from './models/temp.entity';
+import { Course } from './models/course.entity';
 @Injectable()
-export class TempService {
+export class CourseService {
   constructor(
-    @InjectRepository(Temp)
-    private readonly tempRepository: Repository<Temp>,
+    @InjectRepository(Course)
+    private readonly courseRepository: Repository<Course>,
   ) {}
 
-  async create(entity: DeepPartial<Temp>): Promise<boolean> {
-    const res = await this.tempRepository.save(
-      this.tempRepository.create(entity),
+  async create(entity: DeepPartial<Course>): Promise<boolean> {
+    const res = await this.courseRepository.save(
+      this.courseRepository.create(entity),
     );
     if (res) {
       return true;
@@ -19,37 +19,37 @@ export class TempService {
     return false;
   }
 
-  async findById(id: string): Promise<Temp> {
-    return this.tempRepository.findOne({
+  async findById(id: string): Promise<Course> {
+    return this.courseRepository.findOne({
       where: {
         id,
       },
     });
   }
 
-  async updateById(id: string, entity: DeepPartial<Temp>): Promise<boolean> {
+  async updateById(id: string, entity: DeepPartial<Course>): Promise<boolean> {
     const existEntity = await this.findById(id);
     if (!existEntity) {
       return false;
     }
     Object.assign(existEntity, entity);
-    const res = await this.tempRepository.save(existEntity);
+    const res = await this.courseRepository.save(existEntity);
     if (res) {
       return true;
     }
     return false;
   }
 
-  async findTemps({
+  async findCourses({
     start,
     length,
     where,
   }: {
     start: number;
     length: number;
-    where: FindOptionsWhere<Temp>;
-  }): Promise<[Temp[], number]> {
-    return this.tempRepository.findAndCount({
+    where: FindOptionsWhere<Course>;
+  }): Promise<[Course[], number]> {
+    return this.courseRepository.findAndCount({
       take: length,
       skip: start,
       where,
@@ -60,11 +60,11 @@ export class TempService {
   }
 
   async deleteById(id: string, userId: string): Promise<boolean> {
-    const res1 = await this.tempRepository.update(id, {
+    const res1 = await this.courseRepository.update(id, {
       deletedBy: userId,
     });
     if (res1) {
-      const res = await this.tempRepository.softDelete(id);
+      const res = await this.courseRepository.softDelete(id);
       if (res.affected > 0) {
         return true;
       }

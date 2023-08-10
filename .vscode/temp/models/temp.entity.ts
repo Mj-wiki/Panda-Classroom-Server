@@ -5,8 +5,8 @@ import { Column, Entity } from 'typeorm';
 /**
  * 组件
  */
-@Entity('student')
-export class Student extends CommonEntity {
+@Entity('temp')
+export class Temp extends CommonEntity {
   @Column({
     comment: '昵称',
     default: '',

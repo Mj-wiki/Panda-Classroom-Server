@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class StudentInput {
+export class TempInput {
   @Field({
     description: '昵称',
   })

@@ -5,7 +5,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
  * 学员
  */
 @ObjectType()
-export class StudentType extends CommonType {
+export class TempType extends CommonType {
   @Field({
     description: '昵称',
     nullable: true,

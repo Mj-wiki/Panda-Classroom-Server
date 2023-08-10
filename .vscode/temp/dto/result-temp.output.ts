@@ -1,10 +1,10 @@
 import { ObjectType } from '@nestjs/graphql';
 
 import { createResult, createResults } from '@/common/dto/result.type';
-import { StudentType } from './student.type';
+import { TempType } from './temp.type';
 
 @ObjectType()
-export class StudentResult extends createResult(StudentType) {}
+export class TempResult extends createResult(TempType) {}
 
 @ObjectType()
-export class StudentResults extends createResults(StudentType) {}
+export class TempResults extends createResults(TempType) {}

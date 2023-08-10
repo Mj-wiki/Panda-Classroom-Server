@@ -1,5 +1,5 @@
 import { FindOptionsWhere, Like } from 'typeorm';
-import { Temp } from './models/temp.entity';
+import { Course } from './models/course.entity';
 import {
   COURSE_CREATE_FAIL,
   COURSE_DEL_FAIL,
@@ -11,21 +11,21 @@ import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '@/common/guards/auth.guard';
 import { SUCCESS, STUDENT_NOT_EXIST } from '@/common/constants/code';
-import { T'empResult, TempResults } from './dto/result-temp.output';
-import { TempInput } from './dto/temp.input';
-import { TempType } from './dto/temp.type';
-import { TempService } from './temp.service';
+import { CourseResult, CourseResults } from './dto/result-course.output';
+import { CourseInput } from './dto/course.input';
+import { CourseType } from './dto/course.type';
+import { CourseService } from './course.service';
 import { CurUserId } from '@/common/decorators/current-user.decorator';
 import { PageInput } from '@/common/dto/page.input';
 
-@Resolver(() => TempType)
+@Resolver(() => CourseType)
 @UseGuards(GqlAuthGuard)
-export class TempResolver {
-  constructor(private readonly tempService: TempService) {}
+export class CourseResolver {
+  constructor(private readonly courseService: CourseService) {}
 
-  @Query(() => TempResult)
-  async getTempInfo(@Args('id') id: string): Promise<TempResult> {
-    const result = await this.tempService.findById(id);
+  @Query(() => CourseResult)
+  async getCourseInfo(@Args('id') id: string): Promise<CourseResult> {
+    const result = await this.courseService.findById(id);
     if (result) {
       return {
         code: SUCCESS,
@@ -39,14 +39,14 @@ export class TempResolver {
     };
   }
 
-  @Mutation(() => TempResult)
-  async commitTempInfo(
-    @Args('params') params: TempInput,
+  @Mutation(() => CourseResult)
+  async commitCourseInfo(
+    @Args('params') params: CourseInput,
     @CurUserId() userId: string,
     @Args('id', { nullable: true }) id: string,
   ): Promise<Result> {
     if (!id) {
-      const res = await this.tempService.create({
+      const res = await this.courseService.create({
         ...params,
         createdBy: userId,
       });
@@ -61,9 +61,9 @@ export class TempResolver {
         message: '创建失败',
       };
     }
-    const temp = await this.tempService.findById(userId);
-    if (temp) {
-      const res = await this.tempService.updateById(temp.id, {
+    const course = await this.courseService.findById(userId);
+    if (course) {
+      const res = await this.courseService.updateById(course.id, {
         ...params,
         updatedBy: userId,
       });
@@ -84,18 +84,18 @@ export class TempResolver {
     };
   }
 
-  @Query(() => TempResults)
-  async getTemps(
+  @Query(() => CourseResults)
+  async getCourses(
     @Args('page') page: PageInput,
     @CurUserId() userId: string,
     @Args('name', { nullable: true }) name?: string,
-  ): Promise<TempResults> {
+  ): Promise<CourseResults> {
     const { pageNum, pageSize } = page;
-    const where: FindOptionsWhere<Temp> = { createdBy: userId };
+    const where: FindOptionsWhere<Course> = { createdBy: userId };
     if (name) {
       where.name = Like(`%${name}%`);
     }
-    const [results, total] = await this.tempService.findTemps({
+    const [results, total] = await this.courseService.findCourses({
       start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
       length: pageSize,
       where,
@@ -113,13 +113,13 @@ export class TempResolver {
   }
 
   @Mutation(() => Result)
-  async deleteTemp(
+  async deleteCourse(
     @Args('id') id: string,
     @CurUserId() userId: string,
   ): Promise<Result> {
-    const result = await this.tempService.findById(id);
+    const result = await this.courseService.findById(id);
     if (result) {
-      const delRes = await this.tempService.deleteById(id, userId);
+      const delRes = await this.courseService.deleteById(id, userId);
       if (delRes) {
         return {
           code: SUCCESS,
