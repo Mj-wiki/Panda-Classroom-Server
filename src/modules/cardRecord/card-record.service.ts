@@ -126,7 +126,7 @@ export class CardRecordService {
           id: studentId,
         },
       },
-      relations: ['card', 'course', 'course.org'],
+      relations: ['card', 'course', 'course.org', 'course.teachers'],
       order: {
         createdAt: 'DESC',
       },

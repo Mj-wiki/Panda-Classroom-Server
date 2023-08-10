@@ -24,6 +24,9 @@ import { CardRecordService } from '../cardRecord/card-record.service';
 import { OrganizationResults } from '../organization/dto/result-organization.output';
 import { OrganizationType } from '../organization/dto/organization.type';
 
+/**
+ * 课程表
+ */
 @Resolver(() => ScheduleType)
 @UseGuards(GqlAuthGuard)
 export class ScheduleResolver {
@@ -110,6 +113,7 @@ export class ScheduleResolver {
               schedule.course = course;
               schedule.schoolDay = curDay.toDate();
               schedule.createdBy = userId;
+              schedule.teacher = course.teachers[0];
               // 创建课程表实例
               const si = await this.scheduleService.createInstance(schedule);
               schedules.push(si);
@@ -132,6 +136,7 @@ export class ScheduleResolver {
     };
   }
 
+  // 获得所有课程表
   @Query(() => ScheduleResults)
   async getSchedules(@Args('today') today: string): Promise<ScheduleResults> {
     const where: FindOptionsWhere<Schedule> = {
@@ -150,6 +155,7 @@ export class ScheduleResolver {
     };
   }
 
+  // 删除课程表
   @Mutation(() => Result)
   async deleteSchedule(
     @Args('id') id: string,

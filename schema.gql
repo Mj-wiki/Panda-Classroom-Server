@@ -256,6 +256,9 @@ type ScheduleType {
 
   """机构信息"""
   org: OrganizationType
+
+  """老师"""
+  teacher: TeacherType
 }
 
 type ScheduleResult {
