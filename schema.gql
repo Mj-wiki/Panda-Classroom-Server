@@ -290,6 +290,9 @@ type ScheduleRecordType {
   """id"""
   id: String!
 
+  """状态"""
+  status: String
+
   """预约时间"""
   subscribeTime: DateTime
 
@@ -316,32 +319,6 @@ type ScheduleRecordResults {
   code: Int!
   message: String!
   data: [ScheduleRecordType!]
-  page: Page
-}
-
-type ScheduleResult {
-  code: Int!
-  message: String!
-  data: ScheduleType
-}
-
-type ScheduleResults {
-  code: Int!
-  message: String!
-  data: [ScheduleType!]
-  page: Page
-}
-
-type CourseResult {
-  code: Int!
-  message: String!
-  data: CourseType
-}
-
-type CourseResults {
-  code: Int!
-  message: String!
-  data: [CourseType!]
   page: Page
 }
 
@@ -400,6 +377,32 @@ type StudentResults {
   code: Int!
   message: String!
   data: [StudentType!]
+  page: Page
+}
+
+type ScheduleResult {
+  code: Int!
+  message: String!
+  data: ScheduleType
+}
+
+type ScheduleResults {
+  code: Int!
+  message: String!
+  data: [ScheduleType!]
+  page: Page
+}
+
+type CourseResult {
+  code: Int!
+  message: String!
+  data: CourseType
+}
+
+type CourseResults {
+  code: Int!
+  message: String!
+  data: [CourseType!]
   page: Page
 }
 
@@ -729,6 +732,8 @@ type Query {
   """获取某一个课程的近七天的课程表"""
   getSchedulesByCourse(courseId: String!): ScheduleResults!
   getScheduleRecordInfo(id: String!): ScheduleRecordResult!
+
+  """获取某人的课程表"""
   getScheduleRecords(page: PageInput!): ScheduleRecordResults!
 }
 
@@ -782,6 +787,9 @@ type Mutation {
   """确认预约课程"""
   subscribeCourse(scheduleId: String!, cardId: String!): Result!
   deleteScheduleRecord(id: String!): Result!
+
+  """取消已经预约的课程"""
+  cancelSubscribeCourse(scheduleRecordId: String!): Result!
 }
 
 input UserInput {

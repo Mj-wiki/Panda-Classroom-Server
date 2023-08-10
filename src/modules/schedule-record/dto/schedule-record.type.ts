@@ -15,6 +15,12 @@ export class ScheduleRecordType {
   id: string;
 
   @Field({
+    description: '状态',
+    nullable: true,
+  })
+  status: string;
+
+  @Field({
     description: '预约时间',
     nullable: true,
   })

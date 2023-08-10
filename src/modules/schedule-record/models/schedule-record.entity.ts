@@ -18,6 +18,12 @@ export class ScheduleRecord extends CommonEntity {
   })
   subscribeTime: Date;
 
+  @Column({
+    comment: '状态',
+    nullable: true,
+  })
+  status: string;
+
   @ManyToOne(() => Student, { cascade: true })
   student: Student;
 

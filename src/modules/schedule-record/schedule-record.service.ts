@@ -24,6 +24,7 @@ export class ScheduleRecordService {
       where: {
         id,
       },
+      relations: ['schedule', 'cardRecord'],
     });
   }
 
@@ -57,8 +58,9 @@ export class ScheduleRecordService {
       skip: start,
       where,
       order: {
-        createdAt: 'DESC',
+        subscribeTime: 'DESC',
       },
+      relations: ['schedule', 'course', 'org', 'schedule.teacher'],
     });
   }
 
