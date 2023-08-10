@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as dayjs from 'dayjs';
 import * as OSS from 'ali-oss';
 import { OSSType } from './dto/oss.type';
+import { ACCESS_KEY, ACCESS_KEY_SECRET } from 'src/common/constants/aliyun';
 
 @Injectable()
 export class OSSService {
@@ -13,8 +14,8 @@ export class OSSService {
    */
   async getSignature(): Promise<OSSType> {
     const config = {
-      accessKeyId: 'LTAI5t6D9W6Arg5ZwEYfWqjG',
-      accessKeySecret: '8YNGXLtXXTOIR6pp7P4kH963FmTOnt',
+      accessKeyId: ACCESS_KEY,
+      accessKeySecret: ACCESS_KEY_SECRET,
       bucket: 'water-drop-assets',
       dir: 'images/',
     };
