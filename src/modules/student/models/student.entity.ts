@@ -26,7 +26,7 @@ export class Student {
     comment: '头像',
     nullable: true,
   })
-  avatarUrl: string;
+  avatar: string;
 
   @Column({
     comment: '密码',
