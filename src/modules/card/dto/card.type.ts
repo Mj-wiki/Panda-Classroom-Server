@@ -33,7 +33,7 @@ export class CardType {
   })
   validityDay: number;
 
-  @Field(() => CourseType,{
+  @Field(() => CourseType, {
     description: '课程',
   })
   course: CourseType;

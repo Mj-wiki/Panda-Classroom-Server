@@ -13,7 +13,7 @@ import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '@/common/guards/auth.guard';
 import { SUCCESS } from '@/common/constants/code';
 import { ProductResult, ProductResults } from './dto/result-product.output';
-import { ProductInput } from './dto/product.input';
+import { ProductInput, PartialProductInput } from './dto/product.input';
 import { ProductType } from './dto/product.type';
 import { ProductService } from './product.service';
 import { CurUserId } from '@/common/decorators/current-user.decorator';
@@ -42,7 +42,7 @@ export class ProductResolver {
 
   @Mutation(() => ProductResult)
   async commitProductInfo(
-    @Args('params') params: ProductInput,
+    @Args('params') params: PartialProductInput,
     @CurUserId() userId: string,
     @CurOrgId() orgId: string,
     @Args('id', { nullable: true }) id: string,
@@ -51,6 +51,7 @@ export class ProductResolver {
       const res = await this.productService.create({
         ...params,
         createdBy: userId,
+        cards: [],
         org: {
           id: orgId,
         },
@@ -68,10 +69,17 @@ export class ProductResolver {
     }
     const product = await this.productService.findById(id);
     if (product) {
-      const res = await this.productService.updateById(product.id, {
+      const newProduct = {
         ...params,
+        cards: [],
         updatedBy: userId,
-      });
+      };
+      if (params.cards && params.cards?.length > 0) {
+        newProduct.cards = params.cards.map((item) => ({
+          id: item,
+        }));
+      }
+      const res = await this.productService.updateById(product.id, newProduct);
       if (res) {
         return {
           code: SUCCESS,
