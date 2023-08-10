@@ -1,5 +1,5 @@
 import { FindOptionsWhere, Like } from 'typeorm';
-import { Temp } from './models/temp.entity';
+import { {{pascalCase name}} } from './models/{{kebabCase name}}.entity';
 import {
   COURSE_CREATE_FAIL,
   COURSE_DEL_FAIL,
@@ -10,22 +10,22 @@ import { Result } from '@/common/dto/result.type';
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '@/common/guards/auth.guard';
-import { SUCCESS, STUDENT_NOT_EXIST } from '@/common/constants/code';
-import { T'empResult, TempResults } from './dto/result-temp.output';
-import { TempInput } from './dto/temp.input';
-import { TempType } from './dto/temp.type';
-import { TempService } from './temp.service';
+import { SUCCESS } from '@/common/constants/code';
+import { {{pascalCase name}}Result, {{pascalCase name}}Results } from './dto/result-{{kebabCase name}}.output';
+import { {{pascalCase name}}Input } from './dto/{{kebabCase name}}.input';
+import { {{pascalCase name}}Type } from './dto/{{kebabCase name}}.type';
+import { {{pascalCase name}}Service } from './{{kebabCase name}}.service';
 import { CurUserId } from '@/common/decorators/current-user.decorator';
 import { PageInput } from '@/common/dto/page.input';
 
-@Resolver(() => TempType)
+@Resolver(() => {{pascalCase name}}Type)
 @UseGuards(GqlAuthGuard)
-export class TempResolver {
-  constructor(private readonly tempService: TempService) {}
+export class {{pascalCase name}}Resolver {
+  constructor(private readonly {{kebabCase name}}Service: {{pascalCase name}}Service) {}
 
-  @Query(() => TempResult)
-  async getTempInfo(@Args('id') id: string): Promise<TempResult> {
-    const result = await this.tempService.findById(id);
+  @Query(() => {{pascalCase name}}Result)
+  async get{{pascalCase name}}Info(@Args('id') id: string): Promise<{{pascalCase name}}Result> {
+    const result = await this.{{kebabCase name}}Service.findById(id);
     if (result) {
       return {
         code: SUCCESS,
@@ -39,14 +39,14 @@ export class TempResolver {
     };
   }
 
-  @Mutation(() => TempResult)
-  async commitTempInfo(
-    @Args('params') params: TempInput,
+  @Mutation(() => {{pascalCase name}}Result)
+  async commit{{pascalCase name}}Info(
+    @Args('params') params: {{pascalCase name}}Input,
     @CurUserId() userId: string,
     @Args('id', { nullable: true }) id: string,
   ): Promise<Result> {
     if (!id) {
-      const res = await this.tempService.create({
+      const res = await this.{{kebabCase name}}Service.create({
         ...params,
         createdBy: userId,
       });
@@ -61,9 +61,9 @@ export class TempResolver {
         message: '创建失败',
       };
     }
-    const temp = await this.tempService.findById(userId);
-    if (temp) {
-      const res = await this.tempService.updateById(temp.id, {
+    const {{kebabCase name}} = await this.{{kebabCase name}}Service.findById(userId);
+    if ({{kebabCase name}}) {
+      const res = await this.{{kebabCase name}}Service.updateById({{kebabCase name}}.id, {
         ...params,
         updatedBy: userId,
       });
@@ -84,18 +84,18 @@ export class TempResolver {
     };
   }
 
-  @Query(() => TempResults)
-  async getTemps(
+  @Query(() => {{pascalCase name}}Results)
+  async get{{pascalCase name}}s(
     @Args('page') page: PageInput,
     @CurUserId() userId: string,
     @Args('name', { nullable: true }) name?: string,
-  ): Promise<TempResults> {
+  ): Promise<{{pascalCase name}}Results> {
     const { pageNum, pageSize } = page;
-    const where: FindOptionsWhere<Temp> = { createdBy: userId };
+    const where: FindOptionsWhere<{{pascalCase name}}> = { createdBy: userId };
     if (name) {
       where.name = Like(`%${name}%`);
     }
-    const [results, total] = await this.tempService.findTemps({
+    const [results, total] = await this.{{kebabCase name}}Service.find{{pascalCase name}}s({
       start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
       length: pageSize,
       where,
@@ -113,13 +113,13 @@ export class TempResolver {
   }
 
   @Mutation(() => Result)
-  async deleteTemp(
+  async delete{{pascalCase name}}(
     @Args('id') id: string,
     @CurUserId() userId: string,
   ): Promise<Result> {
-    const result = await this.tempService.findById(id);
+    const result = await this.{{kebabCase name}}Service.findById(id);
     if (result) {
-      const delRes = await this.tempService.deleteById(id, userId);
+      const delRes = await this.{{kebabCase name}}Service.deleteById(id, userId);
       if (delRes) {
         return {
           code: SUCCESS,

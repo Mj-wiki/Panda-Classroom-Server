@@ -1,12 +1,11 @@
 import { CommonEntity } from '@/common/entities/common.entity';
-import { IsNotEmpty } from 'class-validator';
 import { Column, Entity } from 'typeorm';
 
 /**
  * 组件
  */
-@Entity('temp')
-export class Temp extends CommonEntity {
+@Entity('{{kebabCase name}}')
+export class {{pascalCase name}} extends CommonEntity {
   @Column({
     comment: '昵称',
     default: '',

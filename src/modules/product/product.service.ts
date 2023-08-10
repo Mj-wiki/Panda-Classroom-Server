@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository, FindOptionsWhere } from 'typeorm';
-import { Temp } from './models/temp.entity';
+import { Product } from './models/product.entity';
 @Injectable()
-export class TempService {
+export class ProductService {
   constructor(
-    @InjectRepository(Temp)
-    private readonly tempRepository: Repository<Temp>,
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
   ) {}
 
-  async create(entity: DeepPartial<Temp>): Promise<boolean> {
-    const res = await this.tempRepository.save(
-      this.tempRepository.create(entity),
+  async create(entity: DeepPartial<Product>): Promise<boolean> {
+    const res = await this.productRepository.save(
+      this.productRepository.create(entity),
     );
     if (res) {
       return true;
@@ -19,37 +19,37 @@ export class TempService {
     return false;
   }
 
-  async findById(id: string): Promise<Temp> {
-    return this.tempRepository.findOne({
+  async findById(id: string): Promise<Product> {
+    return this.productRepository.findOne({
       where: {
         id,
       },
     });
   }
 
-  async updateById(id: string, entity: DeepPartial<Temp>): Promise<boolean> {
+  async updateById(id: string, entity: DeepPartial<Product>): Promise<boolean> {
     const existEntity = await this.findById(id);
     if (!existEntity) {
       return false;
     }
     Object.assign(existEntity, entity);
-    const res = await this.tempRepository.save(existEntity);
+    const res = await this.productRepository.save(existEntity);
     if (res) {
       return true;
     }
     return false;
   }
 
-  async findTemps({
+  async findProducts({
     start,
     length,
     where,
   }: {
     start: number;
     length: number;
-    where: FindOptionsWhere<Temp>;
-  }): Promise<[Temp[], number]> {
-    return this.tempRepository.findAndCount({
+    where: FindOptionsWhere<Product>;
+  }): Promise<[Product[], number]> {
+    return this.productRepository.findAndCount({
       take: length,
       skip: start,
       where,
@@ -60,11 +60,11 @@ export class TempService {
   }
 
   async deleteById(id: string, userId: string): Promise<boolean> {
-    const res1 = await this.tempRepository.update(id, {
+    const res1 = await this.productRepository.update(id, {
       deletedBy: userId,
     });
     if (res1) {
-      const res = await this.tempRepository.softDelete(id);
+      const res = await this.productRepository.softDelete(id);
       if (res.affected > 0) {
         return true;
       }

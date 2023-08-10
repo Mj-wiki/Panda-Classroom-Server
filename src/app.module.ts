@@ -2,6 +2,7 @@ import { CardModule } from './modules/card/card.module';
 import { OrganizationModule } from './modules/organization/organization.module';
 import { ApolloDriver } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
+import { ProductModule } from './modules/product/product.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -37,6 +38,7 @@ import { CourseModule } from './modules/course/course.module';
     OrganizationModule,
     CourseModule,
     CardModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],

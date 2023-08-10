@@ -32,3 +32,11 @@ https://dysms.console.aliyun.com/quickstart
 4 创建 Guard，引入 JWT 策略
 5 修改登录接口
 6 PC 端页面获取 JWT
+
+## 使用 plop 生成模版代码
+> 文档：https://plopjs.com/documentation/
+> hbs：https://handlebarsjs.com/guide/#what-is-handlebars
+1 pnpm i plop -D
+2 配置 plopfile.js 文件
+3 npx plop
+
