@@ -76,3 +76,19 @@ https://water-drop.yondu.vip
 6. 复制 `package.json` 和 `pnpm-lock.yaml` 文件到根目录
 7. 执行 `pnpm i`，前提是已经安装了 pnpm，`pnpm i pnpm -g`
 8. 启动：`pnpm start:prod`
+
+## Dockerfile 有哪些指令？
+- FROM：指定基础镜像，例如 FROM ubuntu:latest。
+- MAINTAINER：指定镜像维护者的信息。
+- RUN：在镜像中执行命令，例如 RUN apt-get update && apt-get install -y nginx。
+- CMD：指定容器启动时要执行的命令或者程序，例如 CMD ["nginx", "-g", "daemon off;"]。
+- EXPOSE：指定容器内部开放的端口号，例如 EXPOSE 80。
+- ENV：设置环境变量，例如 ENV NODE_ENV=production。
+- ADD：将本地文件或目录复制到容器中，例如 ADD ./app /app。
+- COPY：将本地文件或目录复制到容器中，例如 COPY ./app /app。
+- WORKDIR：设置工作目录，例如 WORKDIR /app。
+- USER：设置运行命令的用户，例如 USER nginx。
+- VOLUME：创建挂载点，例如 VOLUME /data。
+
+## 使用 docker
+- 构建镜像：`docker build -t server:v1 .`
