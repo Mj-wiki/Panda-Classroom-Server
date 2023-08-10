@@ -1,3 +1,4 @@
+import { CurOrgId } from './../../common/decorators/current-org.decorator';
 import { FindOptionsWhere, Like } from 'typeorm';
 import { Course } from './models/course.entity';
 import {
@@ -43,12 +44,16 @@ export class CourseResolver {
   async commitCourseInfo(
     @Args('params') params: PartialCourseInput,
     @CurUserId() userId: string,
+    @CurOrgId() orgId: string,
     @Args('id', { nullable: true }) id: string,
   ): Promise<Result> {
     if (!id) {
       const res = await this.courseService.create({
         ...params,
         createdBy: userId,
+        org: {
+          id: orgId,
+        },
       });
       if (res) {
         return {
@@ -88,10 +93,16 @@ export class CourseResolver {
   async getCourses(
     @Args('page') page: PageInput,
     @CurUserId() userId: string,
+    @CurOrgId() orgId: string,
     @Args('name', { nullable: true }) name?: string,
   ): Promise<CourseResults> {
     const { pageNum, pageSize } = page;
-    const where: FindOptionsWhere<Course> = { createdBy: userId };
+    const where: FindOptionsWhere<Course> = {
+      createdBy: userId,
+      org: {
+        id: orgId,
+      },
+    };
     if (name) {
       where.name = Like(`%${name}%`);
     }

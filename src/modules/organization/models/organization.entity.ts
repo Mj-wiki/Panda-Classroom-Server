@@ -1,3 +1,4 @@
+import { Course } from './../../course/models/course.entity';
 import { OrgImage } from './../../orgImage/models/orgImage.entity';
 import { IsNotEmpty } from 'class-validator';
 import { CommonEntity } from '@/common/entities/common.entity';
@@ -91,4 +92,7 @@ export class Organization extends CommonEntity {
     cascade: true,
   })
   orgOtherImg?: OrgImage[];
+
+  @OneToMany(() => Course, (course) => course.org)
+  courses: Course[];
 }

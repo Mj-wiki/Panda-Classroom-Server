@@ -1,6 +1,7 @@
+import { Organization } from '@/modules/organization/models/organization.entity';
 import { CommonEntity } from '@/common/entities/common.entity';
 import { IsInt, IsNotEmpty, Min } from 'class-validator';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { ReducibleTimeType } from '../dto/common.type';
 
 /**
@@ -70,4 +71,9 @@ export class Course extends CommonEntity {
     nullable: true,
   })
   reducibleTime: ReducibleTimeType[];
+
+  @ManyToOne(() => Organization, (org) => org.courses, {
+    cascade: true,
+  })
+  org: Organization;
 }
