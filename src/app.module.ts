@@ -18,11 +18,11 @@ import { TeacherModule } from './modules/teacher/teacher.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'blackstone',
-      database: 'water-drop',
+      host: process.env.MYSQL_HOST,
+      port: parseInt(process.env.MYSQL_PORT),
+      username: process.env.MYSQL_USERNAME,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE,
       entities: [`${__dirname}/../modules/**/*.entity{.ts,.js}`],
       logging: true,
       synchronize: true,

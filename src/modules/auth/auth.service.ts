@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import * as Dysmsapi from '@alicloud/dysmsapi20170525';
 import Util, * as utils from '@alicloud/tea-util';
 import { getRandomCode } from '@/shared/utils';
-import { SIGN_NAME, TEMPLATE_CODE } from '@/common/constants/aliyun';
 import { UserService } from './../user/user.service';
 import { msgClient } from '@/shared/utils/msg';
 import * as dayjs from 'dayjs';
@@ -32,8 +31,8 @@ export class AuthService {
     }
     const code = getRandomCode();
     const sendSmsRequest = new Dysmsapi.SendSmsRequest({
-      signName: SIGN_NAME,
-      templateCode: TEMPLATE_CODE,
+      signName: process.env.SIGN_NAME,
+      templateCode: process.env.TEMPLATE_CODE,
       phoneNumbers: tel,
       templateParam: `{\"code\":\"${code}\"}`,
     });

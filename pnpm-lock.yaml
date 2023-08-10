@@ -26,6 +26,7 @@ specifiers:
   buffer: ^6.0.3
   class-validator: ^0.13.2
   dayjs: ^1.11.7
+  dotenv: ^16.0.3
   eslint: ^8.0.1
   eslint-config-prettier: ^8.3.0
   eslint-plugin-prettier: ^4.0.0
@@ -67,6 +68,7 @@ dependencies:
   buffer: 6.0.3
   class-validator: 0.13.2
   dayjs: 1.11.7
+  dotenv: 16.0.3
   graphql: 16.6.0
   md5: 2.3.0
   mysql2: 2.3.3

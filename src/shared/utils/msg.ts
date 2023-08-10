@@ -1,13 +1,14 @@
 import Dysmsapi20170525 from '@alicloud/dysmsapi20170525';
 import * as OpenApi from '@alicloud/openapi-client';
-import { ACCESS_KEY, ACCESS_KEY_SECRET } from '@/common/constants/aliyun';
+import { config } from 'dotenv';
 
-const config = new OpenApi.Config({
+config();
+const conf = new OpenApi.Config({
   // 必填，您的 AccessKey ID
-  accessKeyId: ACCESS_KEY,
+  accessKeyId: process.env.ACCESS_KEY,
   // 必填，您的 AccessKey Secret
-  accessKeySecret: ACCESS_KEY_SECRET,
+  accessKeySecret: process.env.ACCESS_KEY_SECRET,
 });
 // 访问的域名
-config.endpoint = 'dysmsapi.aliyuncs.com';
-export const msgClient = new Dysmsapi20170525(config);
+conf.endpoint = 'dysmsapi.aliyuncs.com';
+export const msgClient = new Dysmsapi20170525(conf);
