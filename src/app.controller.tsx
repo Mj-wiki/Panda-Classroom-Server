@@ -1,6 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Res } from '@nestjs/common';
 import { User } from './modules/user/models/user.entity';
 import { UserService } from './modules/user/user.service';
+import * as ReactDOMServer from 'react-dom/server';
+import * as React from 'react';
+import { HelloWorld } from './HelloWorld';
 
 @Controller()
 export class AppController {
@@ -33,5 +36,25 @@ export class AppController {
   @Get('/find')
   async find(): Promise<User> {
     return await this.userService.find('cb71e40d-9f15-40ef-a137-1acaa38831f4');
+  }
+
+  @Get('/html')
+  async html(@Res() res) {
+    const name = 'water-drop';
+    const message = 'Hello World!！！！';
+    const html = ReactDOMServer.renderToString(
+      <HelloWorld name={name} message={message} />,
+    );
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>${message}</title>
+        </head>
+        <body>
+          <div id="root">${html}</div>
+        </body>
+      </html>
+    `);
   }
 }
