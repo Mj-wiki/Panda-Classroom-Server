@@ -173,7 +173,7 @@ type Query {
   getStudentInfo: StudentResult!
   getStudents(page: PageInput!): StudentResults!
   getOrganizationInfo(id: String!): OrganizationResult!
-  getOrganizations(page: PageInput!): OrganizationResults!
+  getOrganizations(page: PageInput!, name: String): OrganizationResults!
 }
 
 input PageInput {
@@ -204,6 +204,7 @@ type Mutation {
   studentRegister(account: String!, password: String!): Result!
   commitStudentInfo(params: StudentInput!): StudentResult!
   commitOrganization(params: OrganizationInput!, id: String): OrganizationResult!
+  deleteOrganization(id: String!): Result!
 }
 
 input UserInput {

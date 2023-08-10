@@ -13,3 +13,4 @@ export const VALIDATE_ERROR = 10011;
 export const STUDENT_NOT_EXIST = 10012;
 export const ORG_NOT_EXIST = 100013;
 export const ORG_FAIL = 10014;
+export const ORG_DEL_FAIL = 10014;
