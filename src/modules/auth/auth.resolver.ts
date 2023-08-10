@@ -91,7 +91,6 @@ export class AuthResolver {
         message: '账号不存在',
       };
     }
-    console.log('md5(password)', password, md5(password));
     // 需要对密码进行 md5 加密
     if (student.password === md5(password)) {
       const token = this.jwtService.sign({
