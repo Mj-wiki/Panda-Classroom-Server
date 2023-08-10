@@ -12,6 +12,7 @@ import { OSSModule } from './modules/oss/oss.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { StudentModule } from './modules/student/student.module';
 import { CourseModule } from './modules/course/course.module';
+import { TeacherModule } from './modules/teacher/teacher.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { CourseModule } from './modules/course/course.module';
     CourseModule,
     CardModule,
     ProductModule,
+    TeacherModule,
   ],
   controllers: [AppController],
   providers: [AppService],
