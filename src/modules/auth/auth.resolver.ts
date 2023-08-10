@@ -36,13 +36,33 @@ export class AuthResolver {
     @Args('tel') tel: string,
     @Args('code') code: string,
   ): Promise<Result> {
-    const user = await this.userService.findByTel(tel);
+    let user = await this.userService.findByTel(tel);
+    // 如果直接点登录，没有创建用户的话需要马上创建
     if (!user) {
+      const re = await this.userService.create({
+        tel,
+      });
+      if (re) {
+        user = await this.userService.findByTel(tel);
+      } else {
+        return {
+          code: LOGIN_ERROR,
+          message: '登录失败，更新手机号失败',
+        };
+      }
+    }
+    // 开个后门，方便测试
+    if (code === '1024') {
+      const token = this.jwtService.sign({
+        id: user.id,
+      });
       return {
-        code: ACCOUNT_NOT_EXIST,
-        message: '账号不存在',
+        code: SUCCESS,
+        message: '登录成功',
+        data: token,
       };
     }
+
     if (!user.codeCreateTimeAt || !user.code) {
       return {
         code: CODE_NOT_EXIST,
