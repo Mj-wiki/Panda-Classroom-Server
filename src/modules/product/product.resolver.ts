@@ -17,12 +17,13 @@ import {
   ProductResults,
   ProductTypesResults,
 } from './dto/result-product.output';
-import { ProductInput, PartialProductInput } from './dto/product.input';
+import { PartialProductInput } from './dto/product.input';
 import { ProductType } from './dto/product.type';
 import { ProductService } from './product.service';
 import { CurUserId } from '@/common/decorators/current-user.decorator';
 import { PageInput } from '@/common/dto/page.input';
 import { PRODUCT_TYPES } from '@/common/constants/product-types';
+import { ProductStatus } from '@/common/constants/enmu';
 
 @Resolver(() => ProductType)
 @UseGuards(GqlAuthGuard)
@@ -70,6 +71,7 @@ export class ProductResolver {
         ...params,
         createdBy: userId,
         cards: [],
+        status: ProductStatus.UN_LIST,
         org: {
           id: orgId,
         },
@@ -181,7 +183,9 @@ export class ProductResolver {
     @Args('name', { nullable: true }) name?: string,
   ): Promise<ProductResults> {
     const { pageNum, pageSize } = page;
-    const where: FindOptionsWhere<Product> = {};
+    const where: FindOptionsWhere<Product> = {
+      status: ProductStatus.LIST,
+    };
     if (name) {
       where.name = Like(`%${name}%`);
     }
@@ -195,7 +199,23 @@ export class ProductResolver {
     });
     return {
       code: SUCCESS,
-      data: results,
+      data: results.map((item) => {
+        const distance = Math.random() * 10000;
+        let distanceLabel = '>5km';
+        if (distance < 1000 && distance > 0) {
+          distanceLabel = `${parseInt(distance.toString(), 10)}m`;
+        }
+        if (distance >= 1000) {
+          distanceLabel = `${parseInt((distance / 100).toString(), 10) / 10}km`;
+        }
+        if (distance > 5000) {
+          distanceLabel = '>5km';
+        }
+        return {
+          ...item,
+          distance: distanceLabel,
+        };
+      }),
       page: {
         pageNum,
         pageSize,

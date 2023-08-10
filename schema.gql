@@ -204,6 +204,9 @@ type ProductType {
   """状态"""
   status: String!
 
+  """距离"""
+  distance: String!
+
   """分类"""
   type: String
 
