@@ -29,6 +29,11 @@ export class OSSService {
         ['content-length-range', 0, 1048576000], // 设置上传文件的大小限制
       ],
     };
+
+    // bucket域名
+    const host = `http://${config.bucket}.${
+      (await client.getBucketLocation()).location
+    }.aliyuncs.com`.toString();
     //签名
     const formData = await client.calculatePostSignature(policy);
     //返回参数
@@ -37,6 +42,7 @@ export class OSSService {
       policy: formData.policy,
       signature: formData.Signature,
       accessId: formData.OSSAccessKeyId,
+      host,
     };
 
     return params;

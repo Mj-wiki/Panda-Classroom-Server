@@ -10,4 +10,6 @@ export class OSSType {
   signature: string;
   @Field({ description: 'key' })
   accessId: string;
+  @Field({ description: 'host' })
+  host: string;
 }
