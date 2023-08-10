@@ -18,8 +18,10 @@ export class StudentService {
   }
 
   async create(entity: DeepPartial<Student>): Promise<boolean> {
-    const res = await this.studentRepository.insert(entity);
-    if (res && res.raw.affectedRows > 0) {
+    const res = await this.studentRepository.save(
+      this.studentRepository.create(entity),
+    );
+    if (res) {
       return true;
     }
     return false;
@@ -39,5 +41,21 @@ export class StudentService {
       return true;
     }
     return false;
+  }
+
+  async findStudents({
+    start,
+    length,
+  }: {
+    start: number;
+    length: number;
+  }): Promise<[Student[], number]> {
+    return this.studentRepository.findAndCount({
+      take: length,
+      skip: start,
+      order: {
+        createdAt: 'DESC',
+      },
+    });
   }
 }

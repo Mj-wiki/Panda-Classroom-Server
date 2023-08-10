@@ -8,7 +8,7 @@ export interface IResult<T> {
   data?: T;
 }
 
-interface IResults<T> {
+export interface IResults<T> {
   code: number;
   message: string;
   data?: T[];

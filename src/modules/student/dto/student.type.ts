@@ -1,15 +1,11 @@
+import { CommonType } from '@/common/dto/common.type';
 import { Field, ObjectType } from '@nestjs/graphql';
 
 /**
  * 学员
  */
 @ObjectType()
-export class StudentType {
-  @Field({
-    description: 'id',
-  })
-  id: string;
-
+export class StudentType extends CommonType {
   @Field({
     description: '昵称',
   })
