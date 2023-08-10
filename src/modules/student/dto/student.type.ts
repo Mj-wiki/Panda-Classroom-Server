@@ -8,11 +8,13 @@ import { Field, ObjectType } from '@nestjs/graphql';
 export class StudentType extends CommonType {
   @Field({
     description: '昵称',
+    nullable: true,
   })
   name: string;
 
   @Field({
     description: '手机号',
+    nullable: true,
   })
   tel: string;
 

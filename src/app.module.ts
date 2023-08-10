@@ -1,3 +1,4 @@
+import { OrganizationModule } from './modules/organization/organization.module';
 import { ApolloDriver } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -31,6 +32,7 @@ import { StudentModule } from './modules/student/student.module';
     OSSModule,
     AuthModule,
     StudentModule,
+    OrganizationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

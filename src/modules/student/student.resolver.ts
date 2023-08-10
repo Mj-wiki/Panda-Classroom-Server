@@ -54,17 +54,17 @@ export class StudentResolver {
 
   @Query(() => StudentResults)
   async getStudents(@Args('page') page: PageInput): Promise<StudentResults> {
-    const { start, length } = page;
+    const { pageNum, pageSize } = page;
     const [results, total] = await this.studentService.findStudents({
-      start,
-      length,
+      start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
+      length: pageSize,
     });
     return {
       code: SUCCESS,
       data: results,
       page: {
-        start,
-        length,
+        pageNum,
+        pageSize,
         total,
       },
       message: '获取成功',
