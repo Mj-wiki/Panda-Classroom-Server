@@ -9,6 +9,7 @@ import * as dayjs from 'dayjs';
 import { Result } from '@/common/dto/result.type';
 import {
   CODE_NOT_EXPIRE,
+  CODE_SEND_ERROR,
   SUCCESS,
   UPDATE_ERROR,
 } from '@/common/constants/code';
@@ -38,7 +39,16 @@ export class AuthService {
     });
     const runtime = new utils.RuntimeOptions({});
     try {
-      await msgClient.sendSmsWithOptions(sendSmsRequest, runtime);
+      const sendRes = await msgClient.sendSmsWithOptions(
+        sendSmsRequest,
+        runtime,
+      );
+      if (sendRes.body.code !== 'OK') {
+        return {
+          code: CODE_SEND_ERROR,
+          message: sendRes.body.message,
+        };
+      }
       if (user) {
         const result = await this.userService.updateCode(user.id, code);
         if (result) {
@@ -60,7 +70,7 @@ export class AuthService {
       if (result) {
         return {
           code: SUCCESS,
-          message: 'ok',
+          message: '获取验证码成功',
         };
       }
       return {
