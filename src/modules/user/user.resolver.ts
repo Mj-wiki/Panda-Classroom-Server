@@ -1,6 +1,6 @@
 import { SUCCESS, UPDATE_ERROR } from './../../common/constants/code';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { GqlAuthGuard } from '@/common/guards/auth.guards';
+import { GqlAuthGuard } from '@/common/guards/auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { UserInput } from './dto/user-input.type';
 import { UserType } from './dto/user.type';

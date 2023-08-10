@@ -44,6 +44,26 @@ type OSSType {
   dir: String!
 }
 
+type StudentType {
+  """id"""
+  id: String!
+
+  """昵称"""
+  name: String!
+
+  """手机号"""
+  tel: String!
+
+  """头像"""
+  avatar: String
+}
+
+type StudentResult {
+  code: Int!
+  message: String!
+  data: StudentType
+}
+
 type Query {
   """使用 ID 查询用户"""
   find(id: String!): UserType!
@@ -53,6 +73,7 @@ type Query {
 
   """获取 oss 相关信息"""
   getOSSInfo: OSSType!
+  getStudentInfo: StudentResult!
 }
 
 type Mutation {
@@ -76,6 +97,7 @@ type Mutation {
 
   """学员注册"""
   studentRegister(account: String!, password: String!): Result!
+  commitStudentInfo(params: StudentInput!): StudentResult!
 }
 
 input UserInput {
@@ -84,6 +106,17 @@ input UserInput {
 
   """简介"""
   desc: String!
+
+  """头像"""
+  avatar: String!
+}
+
+input StudentInput {
+  """昵称"""
+  name: String!
+
+  """手机号"""
+  tel: String!
 
   """头像"""
   avatar: String!
