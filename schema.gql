@@ -226,6 +226,61 @@ type OrganizationResults {
   page: Page
 }
 
+type ScheduleType {
+  """id"""
+  id: String!
+  createdAt: DateTime!
+  createdBy: String
+  updatedAt: DateTime
+  updatedBy: String
+  deletedAt: DateTime
+  deletedBy: String
+
+  """上课日期"""
+  schoolDay: DateTime
+
+  """开始时间"""
+  startTime: String
+
+  """结束时间"""
+  endTime: String
+
+  """人数限制"""
+  limitNumber: Float
+
+  """课程实体信息"""
+  course: CourseType
+
+  """机构信息"""
+  org: OrganizationType
+}
+
+type ScheduleResult {
+  code: Int!
+  message: String!
+  data: ScheduleType
+}
+
+type ScheduleResults {
+  code: Int!
+  message: String!
+  data: [ScheduleType!]
+  page: Page
+}
+
+type CourseResult {
+  code: Int!
+  message: String!
+  data: CourseType
+}
+
+type CourseResults {
+  code: Int!
+  message: String!
+  data: [CourseType!]
+  page: Page
+}
+
 type StudentType {
   id: String!
   createdAt: DateTime!
@@ -551,19 +606,6 @@ type OSSType {
   dir: String!
 }
 
-type CourseResult {
-  code: Int!
-  message: String!
-  data: CourseType
-}
-
-type CourseResults {
-  code: Int!
-  message: String!
-  data: [CourseType!]
-  page: Page
-}
-
 type TeacherResult {
   code: Int!
   message: String!
@@ -636,6 +678,8 @@ type Query {
   """获取个人的消费卡"""
   getCardRecordsForH5(page: PageInput!): CardRecordResults!
   getCardRecords(page: PageInput!): CardRecordResults!
+  getScheduleInfo(id: String!): ScheduleResult!
+  getSchedules(page: PageInput!): ScheduleResults!
 }
 
 input PageInput {
@@ -680,6 +724,10 @@ type Mutation {
   deleteOrder(id: String!): Result!
   deleteWxorder(id: String!): Result!
   deleteCardRecord(id: String!): Result!
+
+  """开始排课"""
+  autoCreateSchedule(startDay: String!, endDay: String!): Result!
+  deleteSchedule(id: String!): Result!
 }
 
 input UserInput {
