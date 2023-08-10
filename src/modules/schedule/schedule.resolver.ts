@@ -61,7 +61,7 @@ export class ScheduleResolver {
           id: orgId,
         },
       },
-      start: 1,
+      start: 0,
       length: 100,
     });
     const schedules = [];
@@ -128,23 +128,17 @@ export class ScheduleResolver {
   }
 
   @Query(() => ScheduleResults)
-  async getSchedules(
-    @Args('page') page: PageInput,
-    @CurUserId() userId: string,
-  ): Promise<ScheduleResults> {
-    const { pageNum, pageSize } = page;
-    const where: FindOptionsWhere<Schedule> = { createdBy: userId };
-    const [results, total] = await this.scheduleService.findSchedules({
-      start: pageNum === 1 ? 0 : (pageNum - 1) * pageSize + 1,
-      length: pageSize,
+  async getSchedules(@Args('today') today: string): Promise<ScheduleResults> {
+    const where: FindOptionsWhere<Schedule> = {
+      schoolDay: dayjs(today).toDate(),
+    };
+    const [results, total] = await this.scheduleService.findAllSchedules({
       where,
     });
     return {
       code: SUCCESS,
       data: results,
       page: {
-        pageNum,
-        pageSize,
         total,
       },
       message: '获取成功',

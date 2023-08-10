@@ -679,7 +679,7 @@ type Query {
   getCardRecordsForH5(page: PageInput!): CardRecordResults!
   getCardRecords(page: PageInput!): CardRecordResults!
   getScheduleInfo(id: String!): ScheduleResult!
-  getSchedules(page: PageInput!): ScheduleResults!
+  getSchedules(today: String!): ScheduleResults!
 }
 
 input PageInput {
