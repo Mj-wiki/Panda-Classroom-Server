@@ -211,6 +211,9 @@ type OrganizationType {
 
   """其他图"""
   orgOtherImg: [OrgImageType!]
+
+  """门店的课程"""
+  courses: [CourseType!]
 }
 
 type OrganizationResult {
@@ -680,6 +683,9 @@ type Query {
   getCardRecords(page: PageInput!): CardRecordResults!
   getScheduleInfo(id: String!): ScheduleResult!
   getSchedules(today: String!): ScheduleResults!
+
+  """获得当前学员可以约的课程"""
+  getCanSubscribeCourses: OrganizationResults!
 }
 
 input PageInput {

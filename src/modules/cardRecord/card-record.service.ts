@@ -1,10 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeepPartial, Repository, FindOptionsWhere } from 'typeorm';
+import {
+  DeepPartial,
+  Repository,
+  FindOptionsWhere,
+  FindManyOptions,
+} from 'typeorm';
 import { CardRecord } from './models/card-record.entity';
 import { CardService } from '../card/card.service';
 import * as dayjs from 'dayjs';
 import { StudentService } from '../student/student.service';
+import { CardType } from '@/common/constants/enmu';
 
 @Injectable()
 export class CardRecordService {
@@ -110,5 +116,32 @@ export class CardRecordService {
       }
     }
     return false;
+  }
+
+  // 获取当前学员有效的消费卡
+  async findValidCards(studentId: string): Promise<CardRecord[]> {
+    const options: FindManyOptions<CardRecord> = {
+      where: {
+        student: {
+          id: studentId,
+        },
+      },
+      relations: ['card', 'course', 'course.org'],
+      order: {
+        createdAt: 'DESC',
+      },
+    };
+    const [res] = await this.cardRecordRepository.findAndCount(options);
+    const data: CardRecord[] = [];
+    res.forEach((item) => {
+      // 是否过期
+      if (dayjs().isBefore(item.endTime)) {
+        // 如果当前是次卡的话，我们需要判断还有没有次数
+        if (!(item.card.type === CardType.TIME && item.residueTime === 0)) {
+          data.push(item);
+        }
+      }
+    });
+    return data;
   }
 }
