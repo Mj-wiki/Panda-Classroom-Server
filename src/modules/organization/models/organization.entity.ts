@@ -1,3 +1,4 @@
+import { Product } from './../../product/models/product.entity';
 import { Course } from './../../course/models/course.entity';
 import { OrgImage } from './../../orgImage/models/orgImage.entity';
 import { IsNotEmpty } from 'class-validator';
@@ -98,5 +99,8 @@ export class Organization extends CommonEntity {
   courses: Course[];
 
   @OneToMany(() => Card, (card) => card.org)
-  cards: Card;
+  cards: Card[];
+
+  @OneToMany(() => Product, (product) => product.org)
+  products: Product[];
 }

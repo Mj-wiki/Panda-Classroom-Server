@@ -1,3 +1,4 @@
+import { OrganizationType } from './../../organization/dto/organization.type';
 import { CommonType } from '@/common/dto/common.type';
 import { Field, ObjectType } from '@nestjs/graphql';
 
@@ -7,26 +8,58 @@ import { Field, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class ProductType extends CommonType {
   @Field({
-    description: '昵称',
-    nullable: true,
+    description: '名称',
   })
   name: string;
 
   @Field({
-    description: '手机号',
+    description: '描述',
     nullable: true,
   })
-  tel: string;
+  desc: string;
 
   @Field({
-    description: '头像',
-    nullable: true,
+    description: '库存总数',
   })
-  avatar: string;
+  stock: number;
 
   @Field({
-    description: '账号',
-    nullable: true,
+    description: '当前库存',
   })
-  account: string;
+  curStock: number;
+
+  @Field({
+    description: '卖出去多少',
+  })
+  buyNumber: number;
+
+  @Field({
+    description: '每人限购数量',
+  })
+  limitBuyNumber: number;
+
+  @Field({
+    description: '封面图',
+  })
+  coverUrl: string;
+
+  @Field({
+    description: '头部banner图',
+  })
+  bannerUrl: string;
+
+  @Field({
+    description: '原价',
+  })
+  originalPrice: number;
+
+  @Field({
+    description: '优惠价',
+  })
+  preferentialPrice: number;
+
+  @Field(() => OrganizationType, {
+    description: '门店信息',
+  })
+  org: OrganizationType;
 }

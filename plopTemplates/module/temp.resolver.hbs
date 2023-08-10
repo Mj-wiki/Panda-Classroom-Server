@@ -43,12 +43,16 @@ export class {{pascalCase name}}Resolver {
   async commit{{pascalCase name}}Info(
     @Args('params') params: {{pascalCase name}}Input,
     @CurUserId() userId: string,
+    @CurOrgId() orgId: string,
     @Args('id', { nullable: true }) id: string,
   ): Promise<Result> {
     if (!id) {
       const res = await this.{{kebabCase name}}Service.create({
         ...params,
         createdBy: userId,
+        org: {
+          id: orgId,
+        }
       });
       if (res) {
         return {
@@ -61,7 +65,7 @@ export class {{pascalCase name}}Resolver {
         message: '创建失败',
       };
     }
-    const {{kebabCase name}} = await this.{{kebabCase name}}Service.findById(userId);
+    const {{kebabCase name}} = await this.{{kebabCase name}}Service.findById(id);
     if ({{kebabCase name}}) {
       const res = await this.{{kebabCase name}}Service.updateById({{kebabCase name}}.id, {
         ...params,
