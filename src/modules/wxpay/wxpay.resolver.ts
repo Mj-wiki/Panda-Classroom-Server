@@ -12,7 +12,7 @@ import {
   SUCCESS,
 } from '@/common/constants/code';
 import WxPay from 'wechatpay-node-v3';
-import { WECHAT_PAY_MANAGER } from 'nest-wechatpay-node-v3';
+// import { WECHAT_PAY_MANAGER } from 'nest-wechatpay-node-v3';
 import { v4 as uuidv4 } from 'uuid';
 import { ProductService } from '../product/product.service';
 import { WxConfig } from './dto/wx-config.type';
@@ -29,7 +29,7 @@ export class WxpayResolver {
     private readonly studentService: StudentService,
     private readonly orderService: OrderService,
     private readonly productService: ProductService,
-    @Inject(WECHAT_PAY_MANAGER) private wxPay: WxPay,
+    // @Inject(WECHAT_PAY_MANAGER) private wxPay: WxPay,
   ) {}
 
   // appId: 'wx2421b1c4370ec43b', // 公众号ID，由商户传入
@@ -95,7 +95,7 @@ export class WxpayResolver {
         openid: student.openid,
       },
     };
-    const result = await this.wxPay.transactions_jsapi(params);
+    // const result = await this.wxPay.transactions_jsapi(params);
     await this.orderService.create({
       tel: student.tel,
       quantity,
@@ -114,7 +114,7 @@ export class WxpayResolver {
     });
     return {
       code: SUCCESS,
-      data: result as WxConfig,
+      // data: result as WxConfig,
       message: '获取微信支付配置信息成功',
     };
   }

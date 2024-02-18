@@ -1,4 +1,4 @@
-水滴 后端服务
+小熊课堂 后端服务
 
 ## 图片上传服务端文档
 - 简单介绍：https://help.aliyun.com/document_detail/31926.html

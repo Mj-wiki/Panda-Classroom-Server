@@ -12,7 +12,8 @@ import { StudentService } from '../student/student.service';
 @Module({
   imports: [
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      // secret: process.env.JWT_SECRET,
+      secret: 'majian1234',
       signOptions: {
         expiresIn: 60 * 60 * 24 * 7 + 's',
       },
