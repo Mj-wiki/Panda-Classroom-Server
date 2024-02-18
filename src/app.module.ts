@@ -18,7 +18,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { StudentModule } from './modules/student/student.module';
 import { CourseModule } from './modules/course/course.module';
 import { TeacherModule } from './modules/teacher/teacher.module';
-import { WxpayModule } from './modules/wxpay/wxpay.module';
+// import { WxpayModule } from './modules/wxpay/wxpay.module';
 
 @Module({
   imports: [
@@ -26,9 +26,9 @@ import { WxpayModule } from './modules/wxpay/wxpay.module';
       type: 'mysql',
       host: process.env.MYSQL_HOST,
       port: parseInt(process.env.MYSQL_PORT),
-      username: process.env.MYSQL_USERNAME,
-      password: process.env.MYSQL_PASSWORD,
-      database: process.env.MYSQL_DATABASE,
+      username: process.env.MYSQL_USERNAME || 'root',
+      password: process.env.MYSQL_PASSWORD || 'majian1234',
+      database: process.env.MYSQL_DATABASE || 'test_0205',
       entities: [`${__dirname}/../modules/**/*.entity{.ts,.js}`],
       logging: true,
       synchronize: true,
@@ -47,7 +47,7 @@ import { WxpayModule } from './modules/wxpay/wxpay.module';
     CardModule,
     ProductModule,
     TeacherModule,
-    WxpayModule,
+    // WxpayModule,
     OrderModule,
     WxorderModule,
     CardRecordModule,
