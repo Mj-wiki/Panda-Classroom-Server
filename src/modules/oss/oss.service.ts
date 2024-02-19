@@ -12,9 +12,9 @@ export class OSSService {
    */
   async getSignature(): Promise<OSSType> {
     const config = {
-      accessKeyId: process.env.ACCESS_KEY,
-      accessKeySecret: process.env.ACCESS_KEY_SECRET,
-      bucket: 'water-drop-assets',
+      accessKeyId: process.env.ACCESS_KEY || 'LTAI5tQQubMkQwBrxrsHk1MA',
+      accessKeySecret: process.env.ACCESS_KEY_SECRET || 'zR2v7ina1cd0t1953T3FpzB8JAoMTo',
+      bucket: 'panda-001',
       dir: 'images/',
     };
 
