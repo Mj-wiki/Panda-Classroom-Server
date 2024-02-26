@@ -35,6 +35,7 @@ export class OSSService {
     }.aliyuncs.com`.toString();
     //签名
     const formData = await client.calculatePostSignature(policy);
+    console.log(formData,'oss上传')
     //返回参数
     const params = {
       expire: dayjs().add(1, 'days').unix().toString(),
@@ -43,6 +44,7 @@ export class OSSService {
       accessId: formData.OSSAccessKeyId,
       host,
       dir: 'images/',
+      success_action_status: '200'
     };
 
     return params;
